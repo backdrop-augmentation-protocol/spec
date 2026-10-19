@@ -1,0 +1,14 @@
+{
+  "protocol": {"name": "bap", "version": "0.1.0", "profile": "core"},
+  "id": "org.example.clock",
+  "name": "Example Clock",
+  "version": "1.0.0",
+  "implementationVersion": "1.2.0",
+  "role": "component",
+  "capabilities": [],
+  "permissions": [],
+  "modes": ["standalone", "embedded"],
+  "entrypoints": {"default": "index.html", "standalone": "standalone.html", "embedded": "embedded.html"},
+  "configScopes": ["global", "wallpaper"],
+  "description": "Minimal dual-mode example component."
+}

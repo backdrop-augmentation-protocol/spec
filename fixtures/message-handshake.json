@@ -1,0 +1,20 @@
+[
+  {
+    "protocol": {"name": "bap", "version": "0.1.0", "profile": "core"},
+    "kind": "request",
+    "id": "req-hello-1",
+    "timestamp": "2026-01-01T00:00:00Z",
+    "method": "hello",
+    "payload": {"role": "component", "identity": {"id": "org.example.clock", "name": "Example Clock", "version": "1.0.0"}, "protocolVersions": ["0.1.0"], "capabilities": [], "requestedPermissions": []}
+  },
+  {
+    "protocol": {"name": "bap", "version": "0.1.0", "profile": "core"},
+    "kind": "response",
+    "id": "res-hello-1",
+    "correlationId": "req-hello-1",
+    "sessionId": "session-example-1",
+    "timestamp": "2026-01-01T00:00:00Z",
+    "ok": true,
+    "result": {"selectedProtocol": {"name": "bap", "version": "0.1.0", "profile": "core"}, "role": "host", "capabilities": [], "permissions": []}
+  }
+]

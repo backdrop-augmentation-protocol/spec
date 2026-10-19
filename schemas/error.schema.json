@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/schemas/error.schema.json",
+  "title": "BAP Error",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["code", "message"],
+  "properties": {
+    "code": {"enum": ["INVALID_MESSAGE", "UNSUPPORTED_VERSION", "UNSUPPORTED_PROFILE", "UNAUTHORIZED", "CAPABILITY_DENIED", "INVALID_STATE", "NOT_FOUND", "CONFLICT", "TIMEOUT", "INTERNAL_ERROR"]},
+    "message": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "retryable": {"type": "boolean"},
+    "details": {"type": "object", "additionalProperties": true}
+  }
+}

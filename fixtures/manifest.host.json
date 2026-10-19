@@ -1,0 +1,11 @@
+{
+  "protocol": {"name": "bap", "version": "0.1.0", "profile": "core"},
+  "id": "org.example.host",
+  "name": "Example Host",
+  "version": "1.0.0",
+  "role": "host",
+  "capabilities": [],
+  "permissions": [],
+  "entrypoints": {"default": "host.html"},
+  "configScopes": ["global", "wallpaper"]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/schemas/message.schema.json",
+  "title": "BAP Message",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "kind", "id", "timestamp"],
+  "properties": {
+    "protocol": {"$ref": "common.schema.json#/$defs/protocol"},
+    "kind": {"enum": ["request", "response", "event"]},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "sessionId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "correlationId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "timestamp": {"$ref": "common.schema.json#/$defs/timestamp"},
+    "method": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{0,63}$"},
+    "event": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{0,63}$"},
+    "payload": {"type": "object", "additionalProperties": true},
+    "ok": {"type": "boolean"},
+    "result": {"type": "object", "additionalProperties": true},
+    "error": {"$ref": "error.schema.json"}
+  },
+  "oneOf": [
+    {"properties": {"kind": {"const": "request"}}, "required": ["method", "payload"], "not": {"required": ["event", "ok", "result", "error"]}},
+    {"properties": {"kind": {"const": "event"}}, "required": ["event", "payload"], "not": {"required": ["method", "ok", "result", "error"]}},
+    {"properties": {"kind": {"const": "response"}, "ok": {"const": true}}, "required": ["ok", "result"], "not": {"required": ["method", "event", "error"]}},
+    {"properties": {"kind": {"const": "response"}, "ok": {"const": false}}, "required": ["ok", "error"], "not": {"required": ["method", "event", "result"]}}
+  ]
+}

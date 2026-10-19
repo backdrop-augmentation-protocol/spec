@@ -1,0 +1,8 @@
+{
+  "protocol": {"name": "bap", "version": "0.1.0", "profile": "core"},
+  "kind": "response",
+  "id": "res-invalid-state-1",
+  "timestamp": "2026-01-01T00:00:00Z",
+  "ok": false,
+  "error": {"code": "INVALID_STATE", "message": "Cannot resume before initialization.", "retryable": false}
+}
