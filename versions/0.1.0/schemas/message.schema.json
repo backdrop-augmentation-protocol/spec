@@ -20,9 +20,9 @@
     "error": {"$ref": "error.schema.json"}
   },
   "oneOf": [
-    {"properties": {"kind": {"const": "request"}}, "required": ["method", "payload"], "not": {"required": ["event", "ok", "result", "error"]}},
-    {"properties": {"kind": {"const": "event"}}, "required": ["event", "payload"], "not": {"required": ["method", "ok", "result", "error"]}},
-    {"properties": {"kind": {"const": "response"}, "ok": {"const": true}}, "required": ["ok", "result"], "not": {"required": ["method", "event", "error"]}},
-    {"properties": {"kind": {"const": "response"}, "ok": {"const": false}}, "required": ["ok", "error"], "not": {"required": ["method", "event", "result"]}}
+    {"properties": {"kind": {"const": "request"}, "method": {}, "payload": {}}, "required": ["method", "payload"], "not": {"properties": {"event": {}, "ok": {}, "result": {}, "error": {}}, "required": ["event", "ok", "result", "error"]}},
+    {"properties": {"kind": {"const": "event"}, "event": {}, "payload": {}}, "required": ["event", "payload"], "not": {"properties": {"method": {}, "ok": {}, "result": {}, "error": {}}, "required": ["method", "ok", "result", "error"]}},
+    {"properties": {"kind": {"const": "response"}, "ok": {"const": true}, "result": {}}, "required": ["ok", "result"], "not": {"properties": {"method": {}, "event": {}, "error": {}}, "required": ["method", "event", "error"]}},
+    {"properties": {"kind": {"const": "response"}, "ok": {"const": false}, "error": {}}, "required": ["ok", "error"], "not": {"properties": {"method": {}, "event": {}, "result": {}}, "required": ["method", "event", "result"]}}
   ]
 }
