@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://backdrop-augmentation-protocol.github.io/spec/schemas/manifest.schema.json",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/versions/0.1.0/schemas/manifest.schema.json",
   "title": "BAP Manifest",
   "type": "object",
   "additionalProperties": false,
@@ -29,9 +29,9 @@
     "description": {"type": "string", "maxLength": 2048}
   },
   "allOf": [
-    {"if": {"properties": {"role": {"const": "component"}}}, "then": {"required": ["modes"], "allOf": [
-      {"if": {"properties": {"modes": {"contains": {"const": "standalone"}}}}, "then": {"properties": {"entrypoints": {"required": ["standalone"]}}}},
-      {"if": {"properties": {"modes": {"contains": {"const": "embedded"}}}}, "then": {"properties": {"entrypoints": {"required": ["embedded"]}}}}
+    {"if": {"required": ["role"], "properties": {"role": {"const": "component"}}}, "then": {"required": ["modes"], "allOf": [
+      {"if": {"properties": {"modes": {"type": "array", "contains": {"const": "standalone"}}}}, "then": {"properties": {"entrypoints": {"type": "object", "required": ["standalone"]}}}},
+      {"if": {"properties": {"modes": {"type": "array", "contains": {"const": "embedded"}}}}, "then": {"properties": {"entrypoints": {"type": "object", "required": ["embedded"]}}}}
     ]}}
   ]
 }

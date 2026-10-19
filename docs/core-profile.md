@@ -45,7 +45,7 @@ protocol compatibility.
 ## 3. Manifest
 
 The manifest is a signed or otherwise trusted package/application descriptor.
-The MVP schema is `schemas/manifest.schema.json`. Required fields are:
+The MVP schema is `versions/0.1.0/schemas/manifest.schema.json`. Required fields are:
 
 - stable `id` (reverse-DNS or Workshop-compatible identifier);
 - `name`, `version`, and `protocol`;
@@ -142,7 +142,7 @@ session after its response.
 ## 7. Messages
 
 All protocol messages are JSON objects validated by
-`schemas/message.schema.json`.
+`versions/0.1.0/schemas/message.schema.json`.
 
 ### 7.1 Requests and responses
 
@@ -167,7 +167,7 @@ to a request when applicable.
 
 ## 8. Errors
 
-Errors use the structure in `schemas/error.schema.json`. `code` is stable and
+Errors use the structure in `versions/0.1.0/schemas/error.schema.json`. `code` is stable and
 machine-readable; `message` is diagnostic text and MUST NOT be used for control
 flow. `details` is optional, non-sensitive structured data. Core codes are:
 
@@ -206,7 +206,7 @@ A Core Profile implementation conforms to this MVP when it:
 - validates request/response/event/error shapes;
 - supports Standalone or Embedded mode as declared;
 - ignores unknown optional fields safely;
-- passes the valid and invalid fixtures in `fixtures/` relevant to its role.
+- passes the valid and invalid fixtures in `versions/0.1.0/fixtures/` relevant to its role.
 
 The conformance repository will define executable tests. This repository is the
 normative source for the contract and its example fixtures.

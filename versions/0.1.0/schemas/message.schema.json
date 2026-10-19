@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://backdrop-augmentation-protocol.github.io/spec/schemas/message.schema.json",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/versions/0.1.0/schemas/message.schema.json",
   "title": "BAP Message",
   "type": "object",
   "additionalProperties": false,

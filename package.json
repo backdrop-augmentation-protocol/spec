@@ -1,0 +1,18 @@
+{
+  "name": "@backdrop-augmentation-protocol/spec",
+  "version": "0.1.0",
+  "description": "Normative schemas, fixtures, and documentation for the BAP Core Profile.",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "docs/",
+    "versions/"
+  ],
+  "exports": {
+    ".": "./versions/0.1.0/index.json",
+    "./profile": "./docs/core-profile.md",
+    "./profile.zh-CN": "./docs/core-profile.zh-CN.md",
+    "./schemas/*": "./versions/0.1.0/schemas/*",
+    "./fixtures/*": "./versions/0.1.0/fixtures/*"
+  }
+}

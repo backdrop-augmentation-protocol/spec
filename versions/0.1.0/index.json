@@ -1,0 +1,24 @@
+{
+  "protocol": {
+    "name": "bap",
+    "version": "0.1.0",
+    "profile": "core"
+  },
+  "package": {
+    "name": "@backdrop-augmentation-protocol/spec",
+    "version": "0.1.0"
+  },
+  "profile": "docs/core-profile.md",
+  "schemas": {
+    "common": "schemas/common.schema.json",
+    "manifest": "schemas/manifest.schema.json",
+    "message": "schemas/message.schema.json",
+    "error": "schemas/error.schema.json"
+  },
+  "fixtures": {
+    "manifestComponentDualMode": "fixtures/manifest.component-dual-mode.json",
+    "manifestHost": "fixtures/manifest.host.json",
+    "messageHandshake": "fixtures/message-handshake.json",
+    "messageInvalidState": "fixtures/message-invalid-state.json"
+  }
+}

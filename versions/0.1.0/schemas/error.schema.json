@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://backdrop-augmentation-protocol.github.io/spec/schemas/error.schema.json",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/versions/0.1.0/schemas/error.schema.json",
   "title": "BAP Error",
   "type": "object",
   "additionalProperties": false,

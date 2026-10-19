@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://backdrop-augmentation-protocol.github.io/spec/schemas/common.schema.json",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/versions/0.1.0/schemas/common.schema.json",
   "definitions": {
     "semver": {
       "type": "string",
