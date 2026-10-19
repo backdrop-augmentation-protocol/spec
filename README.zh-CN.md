@@ -12,8 +12,10 @@ Schema，以及用于互操作性验证的 Fixtures。
 
 - `docs/core-profile.md` — 规范性 MVP 契约和协议行为（英文）。
 - `docs/core-profile.zh-CN.md` — 上述正文的简体中文版本。
-- `schemas/` — 用于线协议和包数据的 JSON Schema 2020-12 定义。
-- `fixtures/` — 一致性测试使用的有效和无效示例。
+- `docs/consuming.md` — 包、URL 和版本消费说明。
+- `versions/0.1.0/` — 不可覆盖的 Core Profile 发布内容。
+- `versions/0.1.0/schemas/` — 用于线协议和包数据的 JSON Schema 2020-12 定义。
+- `versions/0.1.0/fixtures/` — 一致性测试使用的有效和无效示例。
 
 Schema 用于校验文档和单条消息，不能替代规范正文中的状态机和消息顺序
 规则。
@@ -22,7 +24,7 @@ Schema 用于校验文档和单条消息，不能替代规范正文中的状态�
 
 - 协议标识：`bap`
 - Core Profile：`core`
-- 当前 MVP 协议版本：`0.1`
+- 当前 MVP 协议版本：`0.1.0`
 
 中文版本与英文规范正文同步维护。出现翻译歧义时，以英文规范正文和机器可读
 Schema 为准；规范性变更应同时更新两个语言版本。

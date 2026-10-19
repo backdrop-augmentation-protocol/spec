@@ -3,7 +3,7 @@
 Status: draft MVP specification  
 Protocol identifier: `bap`  
 Core profile: `core`  
-Current protocol version: `0.1`
+Current protocol version: `0.1.0`
 
 This document defines the minimum interoperable contract for a BAP Host,
 Component, and Companion. The protocol is transport-neutral. The MVP reference

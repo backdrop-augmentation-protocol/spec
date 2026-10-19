@@ -3,7 +3,7 @@
 状态：MVP 草案规范  
 协议标识：`bap`  
 Core Profile：`core`  
-当前协议版本：`0.1`
+当前协议版本：`0.1.0`
 
 本文定义 BAP Host、Component 和 Companion 之间的最低互操作契约。协议与
 传输无关。MVP 参考传输使用 HTTP 进行发现和资源访问，使用 WebSocket 建立
@@ -37,7 +37,7 @@ Profile 标记为必需字段，否则实现必须忽略未知 JSON 对象成员
 ## 3. Manifest
 
 Manifest 是已签名或以其他方式受信任的包/应用描述符。MVP Schema 位于
-`schemas/manifest.schema.json`。必填字段包括：
+`versions/0.1.0/schemas/manifest.schema.json`。必填字段包括：
 
 - 稳定的 `id`（反向 DNS 或兼容 Workshop 的标识符）；
 - `name`、`version` 和 `protocol`；
@@ -125,7 +125,7 @@ stopped -> initialized   （仅用于显式重启）
 
 ## 7. 消息
 
-所有协议消息都是由 `schemas/message.schema.json` 校验的 JSON 对象。
+所有协议消息都是由 `versions/0.1.0/schemas/message.schema.json` 校验的 JSON 对象。
 
 ### 7.1 请求和响应
 
@@ -148,7 +148,7 @@ UTC 格式的 `timestamp`。在适用时，`correlationId` 用于将事件或响
 
 ## 8. 错误
 
-错误使用 `schemas/error.schema.json` 中的结构。`code` 是稳定的机器可读
+错误使用 `versions/0.1.0/schemas/error.schema.json` 中的结构。`code` 是稳定的机器可读
 值；`message` 是诊断文本，不得用于控制流程。`details` 是可选的非敏感
 结构化数据。Core 错误码包括：
 
@@ -185,7 +185,7 @@ Core Profile 实现满足以下条件时，视为符合本 MVP：
 - 校验请求/响应/事件/错误结构；
 - 按声明支持 Standalone 或 Embedded 模式；
 - 安全地忽略未知可选字段；
-- 通过 `fixtures/` 中与其角色相关的有效和无效 Fixtures。
+- 通过 `versions/0.1.0/fixtures/` 中与其角色相关的有效和无效 Fixtures。
 
 一致性仓库将定义可执行测试。本文档仓库是契约及其示例 Fixtures 的规范性
 来源。
