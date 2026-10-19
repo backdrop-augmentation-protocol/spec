@@ -1,5 +1,7 @@
 # WE Backdrop Augmentation Protocol Specification
 
+English | [简体中文](README.zh-CN.md)
+
 Normative protocol specification, machine-readable schemas, and interoperability
 fixtures for the WE Backdrop Augmentation Protocol (BAP).
 
