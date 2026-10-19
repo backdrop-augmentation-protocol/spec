@@ -30,8 +30,8 @@
   },
   "allOf": [
     {"if": {"required": ["role"], "properties": {"role": {"const": "component"}}}, "then": {"required": ["modes"], "allOf": [
-      {"if": {"properties": {"modes": {"type": "array", "contains": {"const": "standalone"}}}}, "then": {"properties": {"entrypoints": {"type": "object", "required": ["standalone"]}}}},
-      {"if": {"properties": {"modes": {"type": "array", "contains": {"const": "embedded"}}}}, "then": {"properties": {"entrypoints": {"type": "object", "required": ["embedded"]}}}}
+      {"if": {"properties": {"modes": {"type": "array", "contains": {"const": "standalone"}}}}, "then": {"properties": {"entrypoints": {"type": "object", "properties": {"standalone": {"type": "string", "minLength": 1}}, "required": ["standalone"]}}}},
+      {"if": {"properties": {"modes": {"type": "array", "contains": {"const": "embedded"}}}}, "then": {"properties": {"entrypoints": {"type": "object", "properties": {"embedded": {"type": "string", "minLength": 1}}, "required": ["embedded"]}}}}
     ]}}
   ]
 }
