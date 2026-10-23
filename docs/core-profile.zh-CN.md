@@ -80,6 +80,20 @@ Embedded Component 必须：
 4. 将格式错误或未授权的消息视为协议错误；
 5. 保持故障隔离，使 Host 可以停止/重启该组件而不影响壁纸整体运行。
 
+### 4.3 Wallpaper Engine 内存嵌入交付
+
+对于 MVP 的 Wallpaper Engine Web 壁纸集成，`embedded` 入口必须是自包含的
+HTML 文档。嵌入组件运行和渲染所必需的脚本、样式、字体和媒体必须包含在该
+文档中（例如使用内联代码或 data URL），不得依赖相对 URL 按 Host 壁纸
+目录解析、导航到回环 HTTP iframe，或把文件复制进 Host 项目。`standalone`
+入口仍可使用组件包内的独立文件。
+
+Companion 可以读取独立安装的组件包，并在内存中将嵌入文档交给 Host。
+Wallpaper Engine Host 使用 `iframe.srcdoc` 时必须允许运行脚本，但不得授予
+`allow-same-origin`。Host 必须通过 iframe 窗口和活动会话识别消息，不能将
+不透明的 Origin 字符串当作组件身份。本交付规则不改变 BAP 握手或生命周期
+语义；运行期数据访问仍受协商后的能力和权限约束。
+
 ## 5. 握手和能力协商
 
 发起方发送 `hello`，对端回复 `helloAck`。在发送生命周期

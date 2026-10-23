@@ -92,6 +92,24 @@ An embedded Component MUST:
 5. keep its failure isolated so the Host can stop/restart it without taking down
    the wallpaper.
 
+### 4.3 Wallpaper Engine inline delivery
+
+For the MVP Wallpaper Engine Web Wallpaper integration, the `embedded`
+entrypoint MUST be a self-contained HTML document. Scripts, styles, fonts, and
+media required to render and run the embedded component MUST be included in
+that document (for example, as inline code or data URLs). They MUST NOT depend
+on relative URLs resolving against the Host wallpaper's directory, navigation
+to a loopback HTTP iframe, or files copied into the Host's project. The
+`standalone` entrypoint MAY continue to use files in its own component package.
+
+The Companion MAY read the independently installed component package and
+deliver the embedded document to the Host in memory. A Wallpaper Engine Host
+using `iframe.srcdoc` MUST enable scripts without granting `allow-same-origin`.
+It MUST distinguish messages by the iframe window and active session rather
+than treating the opaque origin string as a component identity. This delivery
+rule does not change the BAP handshake or lifecycle semantics; runtime data
+access remains subject to negotiated capabilities and permissions.
+
 ## 5. Handshake and capability negotiation
 
 The initiator sends `hello`; the peer answers with `helloAck`. The handshake
