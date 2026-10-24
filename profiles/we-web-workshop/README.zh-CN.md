@@ -1,8 +1,10 @@
 # Wallpaper Engine Web/Workshop 分发检查
 
 这是 BAP 的打包 Profile，不是线协议 Profile，也不是完整的 Wallpaper Engine 元数据
-Schema。适用于作为 Wallpaper Engine **Web** 壁纸分发的 Host 或 Component。Core
-Profile 仍与平台、传输无关。静态检查通过不代表创意工坊审核、内容合规、版权许可或运行
+Schema。适用于作为 Wallpaper Engine **Web** 壁纸分发的 Host 或 Component。本地开发
+和调试阶段可以只遵守 Core Profile；首次发布到 Workshop 之前，以及已发布项目之后的
+每次更新和维护发布，都必须通过本分发 Profile。Core Profile 仍与平台、传输无关。
+静态检查通过不代表创意工坊审核、内容合规、版权许可或运行
 时行为一定通过。
 
 ## 最低包要求

@@ -2,8 +2,11 @@
 
 This is a BAP packaging profile, not a wire-protocol profile or a complete
 Wallpaper Engine metadata schema. It applies to a Host or Component distributed
-as a Wallpaper Engine **Web** wallpaper. The Core Profile remains transport- and
-platform-neutral. Passing these static checks does not predict Workshop review,
+as a Wallpaper Engine **Web** wallpaper. Local development and debugging may
+use only the Core Profile; this distribution profile is REQUIRED before first
+Workshop publication and for every subsequent Workshop item update and
+maintenance release. The Core Profile remains transport- and platform-neutral.
+Passing these static checks does not predict Workshop review,
 content moderation, copyright clearance, or successful runtime behavior.
 
 ## Minimum package
