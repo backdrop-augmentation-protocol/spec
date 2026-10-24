@@ -29,6 +29,10 @@ content moderation, copyright clearance, or successful runtime behavior.
 - Host wallpapers MUST NOT bundle independently installed components as a
   substitute for discovery. Multiple components may be installed separately
   and mounted concurrently as specified by Core §4.2.
+- A BAP Host and Component MUST NOT be required to share a distribution source.
+  Either may be a local WE project or a subscribed Workshop item. A local
+  development Component need not have a Workshop ID; when copies share a BAP ID,
+  a Companion may select an explicit source for that component instance.
 
 The schema in this directory checks only `project.json` field shapes. The
 conformance suite checks file existence, containment, entrypoint matching, and

@@ -23,6 +23,9 @@ Schema。适用于作为 Wallpaper Engine **Web** 壁纸分发的 Host 或 Compo
   作为可选增强。
 - Host 壁纸不得打包独立安装的组件来代替发现机制。可以分别安装多个组件，并按照
   Core §4.2 同时挂载。
+- BAP Host 与 Component 不得被要求来自同一种分发来源。两者都可以是 WE 本地
+  项目或已订阅的 Workshop item。本地开发组件不需要 Workshop ID；同一个 BAP ID
+  存在多个副本时，Companion 可以为该组件实例明确选择来源。
 
 本目录的 Schema 仅检查 `project.json` 字段形状。一致性测试套件检查文件存在性、
 路径范围、入口匹配和打包 HTML 的资源引用。静态分析无法证明任意 JavaScript/CSS
