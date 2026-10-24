@@ -8,6 +8,9 @@ fixtures for the WE Backdrop Augmentation Protocol (BAP).
 The current repository contains the MVP Core Profile. Official SDKs are reference
 implementations, not the only valid implementations.
 
+For WE Web wallpapers, the additional [Web/Workshop distribution checks](profiles/we-web-workshop/README.md)
+cover the package and editor handoff without changing the Core wire protocol.
+
 The published package is `@backdrop-augmentation-protocol/spec` at version
 `0.1.0`. The versioned release index is `versions/0.1.0/index.json`.
 Consumers should resolve schemas and fixtures from that index or from the

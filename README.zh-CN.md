@@ -8,6 +8,9 @@ Schema，以及用于互操作性验证的 Fixtures。
 当前仓库包含 MVP Core Profile。官方 SDK 是参考实现，并不是唯一允许的
 实现方式。
 
+面向 WE Web 壁纸的[Web/Workshop 分发检查](profiles/we-web-workshop/README.zh-CN.md)
+覆盖打包和编辑器交接，不改变 Core 线协议。
+
 ## 目录
 
 - `docs/core-profile.md` — 规范性 MVP 契约和协议行为（英文）。

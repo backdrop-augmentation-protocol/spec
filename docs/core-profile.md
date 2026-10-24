@@ -92,6 +92,13 @@ An embedded Component MUST:
 5. keep its failure isolated so the Host can stop/restart it without taking down
    the wallpaper.
 
+A Host MAY mount multiple independently installed Components at once. It MUST
+maintain a separate iframe/window association and active lifecycle state for
+each mount, route replies only to the initiating mount, and isolate one
+Component's failure from the others. Direct Component-to-Component messaging
+is not part of the MVP; any future cooperation requires an explicitly
+negotiated capability rather than implicit access to another Component.
+
 ### 4.3 Wallpaper Engine inline delivery
 
 For the MVP Wallpaper Engine Web Wallpaper integration, the `embedded`
