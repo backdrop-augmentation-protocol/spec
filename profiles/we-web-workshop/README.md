@@ -12,7 +12,8 @@ content moderation, copyright clearance, or successful runtime behavior.
 ## Minimum package
 
 - The package root MUST contain a parseable `project.json` object and an HTML
-  entrypoint named by its `file` member. `type` MUST be `web`.
+  entrypoint named by its `file` member. `type` MUST identify the Web type;
+  both generated `web` and observed editor-normalized `Web` are accepted.
 - `title` MUST be a nonempty string. For a Workshop-ready BAP package, `preview`
   MUST name an image file present in the package. These are BAP distribution
   checks, not a claim that every WE metadata variant has the same required keys.

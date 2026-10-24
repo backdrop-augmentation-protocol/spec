@@ -5,7 +5,7 @@
   "type": "object",
   "required": ["type", "file", "title", "preview"],
   "properties": {
-    "type": { "const": "web" },
+    "type": { "type": "string", "pattern": "^[Ww][Ee][Bb]$" },
     "file": { "type": "string", "minLength": 1 },
     "title": { "type": "string", "minLength": 1 },
     "preview": { "type": "string", "minLength": 1 },

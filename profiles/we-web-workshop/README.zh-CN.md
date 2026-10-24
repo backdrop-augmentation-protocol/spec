@@ -10,7 +10,8 @@ Schema。适用于作为 Wallpaper Engine **Web** 壁纸分发的 Host 或 Compo
 ## 最低包要求
 
 - 包根目录必须包含可解析为对象的 `project.json`，其 `file` 指向包内 HTML 入口，
-  `type` 必须为 `web`。
+  `type` 必须表示 Web 类型；生成包中的 `web` 与实际观察到的编辑器规范化值
+  `Web` 均可接受。
 - `title` 必须是非空字符串。面向创意工坊的 BAP 包中，`preview` 必须指向包内
   存在的图片文件。这是 BAP 的分发检查，不表示所有 WE 元数据变体都要求相同字段。
 - `file` 和 `preview` 必须是包内相对文件路径。BAP Component 的 `manifest.json`
