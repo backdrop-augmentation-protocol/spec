@@ -5,7 +5,7 @@
     "id": "req-hello-1",
     "timestamp": "2026-01-01T00:00:00Z",
     "method": "hello",
-    "payload": {"role": "component", "identity": {"id": "org.example.clock", "name": "Example Clock", "version": "1.0.0"}, "protocolVersions": ["0.1.0"], "capabilities": [], "requestedPermissions": []}
+    "payload": {"role": "host", "identity": {"id": "org.example.host", "name": "Example Host", "version": "1.0.0"}, "protocolVersions": ["0.1.0"], "capabilities": ["lifecycle"], "requestedPermissions": []}
   },
   {
     "protocol": {"name": "bap", "version": "0.1.0", "profile": "core"},
@@ -15,6 +15,6 @@
     "sessionId": "session-example-1",
     "timestamp": "2026-01-01T00:00:00Z",
     "ok": true,
-    "result": {"selectedProtocol": {"name": "bap", "version": "0.1.0", "profile": "core"}, "role": "host", "capabilities": [], "permissions": []}
+    "result": {"selectedProtocol": {"name": "bap", "version": "0.1.0", "profile": "core"}, "role": "component", "capabilities": ["lifecycle"], "permissions": []}
   }
 ]

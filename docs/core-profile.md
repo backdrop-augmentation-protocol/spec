@@ -68,7 +68,8 @@ It MUST:
 
 1. load without a Host or Companion;
 2. expose the Component role in its manifest;
-3. complete the same `hello`/`helloAck` handshake as an embedded component;
+3. initialize a local session with the same lifecycle semantics as an embedded
+   component; no wire handshake is required without a Host;
 4. remain usable when Companion is unavailable;
 5. support `initialize`, `start`, `pause`, `resume`, and `stop` lifecycle
    transitions.
@@ -119,25 +120,33 @@ access remains subject to negotiated capabilities and permissions.
 
 ## 5. Handshake and capability negotiation
 
-The initiator sends `hello`; the peer answers with `helloAck`. The handshake
-MUST complete before lifecycle `initialize` is sent. Both messages are
-request/response messages and use the message schema.
+For an embedded Component, the Host initiates the session by sending a
+`hello` request. The Component answers with a successful response (called
+`helloAck`). The Host MUST complete this handshake before sending lifecycle
+`initialize`. A Component MUST NOT initiate a second Core handshake or
+lifecycle sequence for the same session. In standalone mode, where no Host
+exists, the Component creates a local session and drives its own lifecycle.
 
-`hello.payload` contains the role, implementation identity, supported protocol
-versions, capabilities, and requested permissions. `helloAck.payload` contains
-the selected protocol/profile, granted capabilities and permissions, and a
-session identifier. A peer MUST NOT use a capability or permission that is not
-present in the acknowledgement.
+`hello.payload` contains the Host `role`, `identity` (`id`, `name`, `version`),
+`protocolVersions` (SemVer strings), `capabilities`, and
+`requestedPermissions`. The `helloAck` response has `ok: true`, a
+`correlationId` matching the request `id`, a top-level `sessionId`, and
+`result` containing `selectedProtocol`, `role: "component"`, `capabilities`,
+and `permissions`. The Component selects a supported protocol, creates a
+unique session identifier for this mount, and grants only capabilities and
+permissions allowed by both sides. A peer MUST NOT use an unacknowledged
+capability or permission. An incompatible protocol MUST return an error
+response, not a successful acknowledgement.
 
 Recommended sequence:
 
 ```text
-initiator -> hello (request)
-peer      -> helloAck (response)
-initiator -> initialize (request)
-peer      -> initialized (response)
-initiator -> start (request)
-peer      -> started (response)
+Host      -> hello (request)
+Component -> helloAck (response)
+Host      -> initialize (request)
+Component -> initialized (response)
+Host      -> start (request)
+Component -> started (response)
 ```
 
 The peer MAY send events at any time after `helloAck`, but lifecycle events MUST

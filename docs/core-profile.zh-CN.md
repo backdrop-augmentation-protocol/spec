@@ -59,7 +59,7 @@ Standalone 模式是可以独立启动的完整 Web Wallpaper 入口。它必须
 
 1. 在没有 Host 或 Companion 的情况下加载；
 2. 在 Manifest 中暴露 Component 角色；
-3. 完成与 Embedded Component 相同的 `hello`/`helloAck` 握手；
+3. 建立具有与 Embedded Component 相同生命周期语义的本地会话；没有 Host 时无需线上握手；
 4. 在 Companion 不可用时仍然可用；
 5. 支持 `initialize`、`start`、`pause`、`resume` 和 `stop` 生命周期转换。
 
@@ -101,23 +101,28 @@ Wallpaper Engine Host 使用 `iframe.srcdoc` 时必须允许运行脚本，但�
 
 ## 5. 握手和能力协商
 
-发起方发送 `hello`，对端回复 `helloAck`。在发送生命周期
-`initialize` 之前，握手必须完成。两个消息都是请求/响应消息，并使用消息
-Schema。
+对于嵌入式 Component，由 Host 发送 `hello` 请求发起会话，Component 以成功
+响应（称为 `helloAck`）作答。Host 必须在发送 `initialize` 前完成握手。对于
+同一会话，Component 不得再自行发起第二次 Core 握手或生命周期请求。在没有
+Host 的 Standalone 模式下，Component 建立本地会话并自行驱动生命周期。
 
-`hello.payload` 包含角色、实现身份、支持的协议版本、能力和请求的权限。
-`helloAck.payload` 包含选定的协议/Profile、授予的能力和权限，以及会话
-标识符。对端不得使用确认消息中未出现的能力或权限。
+`hello.payload` 包含 Host 的 `role`、`identity`（`id`、`name`、`version`）、
+`protocolVersions`（SemVer 字符串）、`capabilities` 和 `requestedPermissions`。
+`helloAck` 响应包含 `ok: true`、与请求 `id` 匹配的 `correlationId`、顶层
+`sessionId`，以及包含 `selectedProtocol`、`role: "component"`、`capabilities`
+和 `permissions` 的 `result`。Component 选择受支持的协议，为每次挂载建立唯一
+会话标识，并且只授予双方均允许的能力和权限。双方不得使用确认消息中未出现的
+能力或权限。协议不兼容时必须返回错误响应，不得返回成功确认。
 
 推荐顺序：
 
 ```text
-发起方 -> hello (请求)
-对端   -> helloAck (响应)
-发起方 -> initialize (请求)
-对端   -> initialized (响应)
-发起方 -> start (请求)
-对端   -> started (响应)
+Host      -> hello (请求)
+Component -> helloAck (响应)
+Host      -> initialize (请求)
+Component -> initialized (响应)
+Host      -> start (请求)
+Component -> started (响应)
 ```
 
 对端可以在 `helloAck` 之后随时发送事件，但生命周期事件必须遵守下面的
