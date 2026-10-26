@@ -157,7 +157,7 @@ stopped -> initialized   （仅用于显式重启）
 ### 7.1 请求和响应
 
 请求具有 `kind: "request"`、唯一的 `id`、`method` 和 `payload`。响应具有
-`kind: "response"`、对应的 `id`，以及 `ok: true` 时的结果或 `ok: false`
+`kind: "response"`、自身唯一的 `id`、与请求 `id` 相等的 `correlationId`，以及 `ok: true` 时的结果或 `ok: false`
 时的错误。除非传输已经失败，接收方必须为每个请求返回响应。
 
 Core 请求方法包括 `hello`、`initialize`、`start`、`pause`、`resume` 和

@@ -185,7 +185,8 @@ All protocol messages are JSON objects validated by
 ### 7.1 Requests and responses
 
 Requests have `kind: "request"`, a unique `id`, `method`, and `payload`.
-Responses have `kind: "response"`, the corresponding `id`, and either
+Responses have `kind: "response"`, their own unique `id`, a `correlationId`
+equal to the request `id`, and either
 `ok: true` with a result or `ok: false` with an error. A receiver MUST return a
 response for every request unless the transport has already failed.
 

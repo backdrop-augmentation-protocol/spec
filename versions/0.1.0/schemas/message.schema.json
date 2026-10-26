@@ -22,7 +22,7 @@
   "oneOf": [
     {"properties": {"kind": {"const": "request"}}, "required": ["method", "payload"], "not": {"anyOf": [{"required": ["event"]}, {"required": ["ok"]}, {"required": ["result"]}, {"required": ["error"]}]}},
     {"properties": {"kind": {"const": "event"}}, "required": ["event", "payload"], "not": {"anyOf": [{"required": ["method"]}, {"required": ["ok"]}, {"required": ["result"]}, {"required": ["error"]}]}},
-    {"properties": {"kind": {"const": "response"}, "ok": {"const": true}}, "required": ["ok", "result"], "not": {"anyOf": [{"required": ["method"]}, {"required": ["event"]}, {"required": ["payload"]}, {"required": ["error"]}]}},
-    {"properties": {"kind": {"const": "response"}, "ok": {"const": false}}, "required": ["ok", "error"], "not": {"anyOf": [{"required": ["method"]}, {"required": ["event"]}, {"required": ["payload"]}, {"required": ["result"]}]}}
+    {"properties": {"kind": {"const": "response"}, "ok": {"const": true}}, "required": ["correlationId", "ok", "result"], "not": {"anyOf": [{"required": ["method"]}, {"required": ["event"]}, {"required": ["payload"]}, {"required": ["error"]}]}},
+    {"properties": {"kind": {"const": "response"}, "ok": {"const": false}}, "required": ["correlationId", "ok", "error"], "not": {"anyOf": [{"required": ["method"]}, {"required": ["event"]}, {"required": ["payload"]}, {"required": ["result"]}]}}
   ]
 }
