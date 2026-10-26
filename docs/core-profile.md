@@ -126,6 +126,10 @@ For an embedded Component, the Host initiates the session by sending a
 `initialize`. A Component MUST NOT initiate a second Core handshake or
 lifecycle sequence for the same session. In standalone mode, where no Host
 exists, the Component creates a local session and drives its own lifecycle.
+For a Host-to-Companion session, the Host likewise initiates `hello`; the
+Companion responds with the same envelope and fields, except its acknowledgement
+uses `role: "companion"`. The Companion does not participate in an embedded
+Component's lifecycle.
 
 `hello.payload` contains the Host `role`, `identity` (`id`, `name`, `version`),
 `protocolVersions` (SemVer strings), `capabilities`, and

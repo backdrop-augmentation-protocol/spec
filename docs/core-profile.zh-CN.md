@@ -105,6 +105,9 @@ Wallpaper Engine Host 使用 `iframe.srcdoc` 时必须允许运行脚本，但�
 响应（称为 `helloAck`）作答。Host 必须在发送 `initialize` 前完成握手。对于
 同一会话，Component 不得再自行发起第二次 Core 握手或生命周期请求。在没有
 Host 的 Standalone 模式下，Component 建立本地会话并自行驱动生命周期。
+Host 与 Companion 建立会话时同样由 Host 发起 `hello`；Companion 使用相同的响应
+封套和字段，但确认中的 `role` 为 `"companion"`。Companion 不参与嵌入式
+Component 的生命周期。
 
 `hello.payload` 包含 Host 的 `role`、`identity`（`id`、`name`、`version`）、
 `protocolVersions`（SemVer 字符串）、`capabilities` 和 `requestedPermissions`。
