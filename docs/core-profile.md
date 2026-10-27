@@ -172,6 +172,9 @@ stopped -> initialized   (only for an explicit restart)
 corresponding response MUST be successful before the state transition is
 considered complete. `pause`, `resume`, and `stop` MUST be idempotent. An
 unsupported transition MUST return `INVALID_STATE` and MUST NOT mutate state.
+In particular, `stop` transitions `running` or `paused` to `stopped` and is
+idempotent in `stopped`; it is not a valid transition from `initialized`.
+An explicit restart transitions `stopped` through `initialized` before `running`.
 
 `destroy` is a terminal local cleanup operation and MAY be transport-specific;
 when exposed as a protocol request it MUST release resources and close the

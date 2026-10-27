@@ -146,6 +146,9 @@ stopped -> initialized   （仅用于显式重启）
 `initialize`、`start`、`pause`、`resume` 和 `stop` 是请求名称。相应响应
 成功后，状态转换才算完成。`pause`、`resume` 和 `stop` 必须幂等。不支持的
 状态转换必须返回 `INVALID_STATE`，且不得改变状态。
+具体而言，`stop` 可将 `running` 或 `paused` 转为 `stopped`，在 `stopped`
+状态下重复调用保持幂等；从 `initialized` 直接调用 `stop` 属于无效转换。
+显式重启必须先使 `stopped` 经过 `initialized`，再进入 `running`。
 
 `destroy` 是终止性的本地清理操作，可以由传输层决定是否暴露；如果作为
 协议请求暴露，必须释放资源，并在响应后关闭会话。
