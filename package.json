@@ -4,8 +4,12 @@
   "description": "Normative schemas, fixtures, and documentation for the BAP Core Profile.",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "check": "node scripts/check.mjs"
+  },
   "files": [
     "docs/",
+    "profiles/",
     "versions/"
   ],
   "exports": {
@@ -13,6 +17,7 @@
     "./profile": "./docs/core-profile.md",
     "./profile.zh-CN": "./docs/core-profile.zh-CN.md",
     "./schemas/*": "./versions/0.1.0/schemas/*",
-    "./fixtures/*": "./versions/0.1.0/fixtures/*"
+    "./fixtures/*": "./versions/0.1.0/fixtures/*",
+    "./we-web-workshop/project.schema": "./profiles/we-web-workshop/project.schema.json"
   }
 }
