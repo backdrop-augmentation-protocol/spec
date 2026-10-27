@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Normative schemas, fixtures, and documentation for the BAP Core Profile.",
   "license": "MIT",
+  "publishConfig": { "access": "public" },
   "type": "module",
   "scripts": {
     "check": "node scripts/check.mjs"
