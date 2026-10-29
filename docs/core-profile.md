@@ -238,6 +238,28 @@ The transport MUST preserve message ordering per session, surface disconnects,
 and allow a peer to reconnect and perform a fresh handshake. Reconnection MUST
 not silently restore permissions or lifecycle state.
 
+For a Host authorization request awaiting a human decision, the Companion owns
+the timeout. The reference Core policy is 300 seconds. A Host MUST keep that
+WebSocket request pending until the Companion responds or closes the session;
+it MUST NOT apply a shorter client-side authorization timeout or start another
+session while the request is still pending. When the deadline expires, the
+Companion MUST cancel the pending authorization, return `TIMEOUT` when the
+transport still permits a response, and close the session. An implementation
+may configure a different Companion-side deadline, but that deadline remains
+authoritative for every Host using that Companion.
+
+For the reference HTTP/WebSocket integration, a Host reconnects after a
+transport/session failure using exponential backoff: 3 seconds initially,
+doubled after each unsuccessful or short-lived attempt, capped at 30 seconds,
+with up to 20% random jitter. The backoff resets after a connection remains
+established for 30 seconds. While connected, the Host refreshes the effective
+component selection every 1.5 seconds. On disconnect it MUST stop that refresh,
+unmount embedded Components and discard session-scoped state, while leaving the
+wallpaper itself available. A reconnect creates a fresh session and follows the
+Companion's authorization policy; it MUST NOT restore permissions or component
+lifecycle state from the previous session. These timing values are integration
+policy, not Component load/handshake timeouts.
+
 ## 11. Conformance minimum
 
 A Core Profile implementation conforms to this MVP when it:
