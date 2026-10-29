@@ -229,6 +229,8 @@ Core Profile 实现满足以下条件时，视为符合本 MVP：
 - 校验请求/响应/事件/错误结构；
 - 按声明支持 Standalone 或 Embedded 模式；
 - 安全地忽略未知可选字段；
+- 使用由 Companion 管理的授权期限，不得由 Host 侧更短的计时器提前结束待审批请求；
+- 实现 HTTP/WebSocket 集成时遵循参考重连、刷新和断连清理策略；
 - 通过 `versions/0.1.0/fixtures/` 中与其角色相关的有效和无效 Fixtures。
 
 一致性仓库将定义可执行测试。本文档仓库是契约及其示例 Fixtures 的规范性

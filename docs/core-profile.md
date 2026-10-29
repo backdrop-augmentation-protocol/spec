@@ -270,6 +270,10 @@ A Core Profile implementation conforms to this MVP when it:
 - validates request/response/event/error shapes;
 - supports Standalone or Embedded mode as declared;
 - ignores unknown optional fields safely;
+- uses the Companion-owned authorization deadline and does not end a pending
+  authorization request with a shorter Host-side timer;
+- follows the reference reconnect, refresh, and disconnect-cleanup policy when
+  implementing the HTTP/WebSocket integration;
 - passes the valid and invalid fixtures in `versions/0.1.0/fixtures/` relevant to its role.
 
 The conformance repository will define executable tests. This repository is the
