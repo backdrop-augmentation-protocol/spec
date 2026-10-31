@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/layout.schema.json",
+  "title": "BAP Component Instance Layout",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "anchor", "x", "y", "width", "height", "scale", "rotation", "opacity", "zIndex", "locked"],
+      "properties": {
+        "mode": { "const": "manual" },
+        "anchor": { "enum": ["top-left", "top", "top-right", "left", "center", "right", "bottom-left", "bottom", "bottom-right"] },
+        "x": { "type": "number", "minimum": -2, "maximum": 2 },
+        "y": { "type": "number", "minimum": -2, "maximum": 2 },
+        "width": { "type": "number", "exclusiveMinimum": 0, "maximum": 2 },
+        "height": { "type": "number", "exclusiveMinimum": 0, "maximum": 2 },
+        "scale": { "type": "number", "minimum": 0.1, "maximum": 5 },
+        "rotation": { "type": "number", "minimum": -360, "maximum": 360 },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "zIndex": { "type": "integer", "minimum": -100000, "maximum": 100000 },
+        "locked": { "type": "boolean" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "order", "scale", "rotation", "opacity", "zIndex", "locked"],
+      "properties": {
+        "mode": { "const": "automatic" },
+        "order": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "scale": { "type": "number", "minimum": 0.1, "maximum": 5 },
+        "rotation": { "type": "number", "minimum": -360, "maximum": 360 },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "zIndex": { "type": "integer", "minimum": -100000, "maximum": 100000 },
+        "locked": { "type": "boolean" }
+      }
+    }
+  ]
+}

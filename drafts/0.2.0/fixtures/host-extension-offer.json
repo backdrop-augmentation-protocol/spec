@@ -1,0 +1,4 @@
+[
+  { "id": "org.bap.composition", "versions": ["0.1.0"] },
+  { "id": "org.bap.presentation", "versions": ["0.1.0"] }
+]

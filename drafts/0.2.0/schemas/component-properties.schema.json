@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/component-properties.schema.json",
+  "title": "BAP Declarative Component Properties",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "properties"],
+  "properties": {
+    "schemaVersion": { "const": "0.1.0" },
+    "properties": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,63}$" },
+      "additionalProperties": { "$ref": "#/$defs/property" }
+    }
+  },
+  "$defs": {
+    "property": {
+      "type": "object",
+      "required": ["type", "default"],
+      "properties": {
+        "type": { "enum": ["boolean", "number", "string", "enum", "color"] },
+        "default": {},
+        "title": { "type": "string", "maxLength": 128 },
+        "description": { "type": "string", "maxLength": 512 },
+        "minimum": { "type": "number" },
+        "maximum": { "type": "number" },
+        "step": { "type": "number", "exclusiveMinimum": 0 },
+        "maxLength": { "type": "integer", "minimum": 0, "maximum": 4096 },
+        "options": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "maxLength": 128 } }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "number" } } }, "then": { "properties": { "default": { "type": "number" } } } },
+        { "if": { "properties": { "type": { "const": "boolean" } } }, "then": { "properties": { "default": { "type": "boolean" } } } },
+        { "if": { "properties": { "type": { "const": "enum" } } }, "then": { "required": ["options"], "properties": { "default": { "type": "string" }, "options": {} } } },
+        { "if": { "properties": { "type": { "enum": ["string", "color"] } } }, "then": { "properties": { "default": { "type": "string" } } } }
+      ]
+    }
+  }
+}

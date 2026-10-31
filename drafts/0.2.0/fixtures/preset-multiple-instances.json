@@ -1,0 +1,34 @@
+{
+  "presetId": "daily-desktop",
+  "revision": 3,
+  "updatedAt": "2026-10-31T00:00:00Z",
+  "layoutMode": "manual",
+  "instances": [
+    {
+      "instanceId": "clock-left",
+      "componentId": "org.example.clock",
+      "sourceKey": "workshop:3825045374",
+      "enabled": true,
+      "userVisible": true,
+      "layout": {
+        "mode": "manual", "anchor": "top-left", "x": 0.05, "y": 0.08,
+        "width": 0.2, "height": 0.12, "scale": 1, "rotation": 0,
+        "opacity": 1, "zIndex": 10, "locked": false
+      },
+      "config": { "timeFormat": "24h" }
+    },
+    {
+      "instanceId": "clock-right",
+      "componentId": "org.example.clock",
+      "sourceKey": "workshop:3825045374",
+      "enabled": true,
+      "userVisible": true,
+      "layout": {
+        "mode": "manual", "anchor": "bottom-right", "x": 0.95, "y": 0.92,
+        "width": 0.2, "height": 0.12, "scale": 0.8, "rotation": 0,
+        "opacity": 0.9, "zIndex": 11, "locked": false
+      },
+      "config": { "timeFormat": "12h", "showSeconds": true }
+    }
+  ]
+}

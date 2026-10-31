@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/preset-snapshot.schema.json",
+  "title": "BAP Preset Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["presetId", "revision", "updatedAt", "layoutMode", "instances"],
+  "properties": {
+    "presetId": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "revision": { "type": "integer", "minimum": 0 },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "layoutMode": { "enum": ["manual", "grid"] },
+    "grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["columns", "gapX", "gapY", "paddingX", "paddingY"],
+      "properties": {
+        "columns": { "type": "integer", "minimum": 1, "maximum": 32 },
+        "gapX": { "type": "number", "minimum": 0, "maximum": 0.25 },
+        "gapY": { "type": "number", "minimum": 0, "maximum": 0.25 },
+        "paddingX": { "type": "number", "minimum": 0, "maximum": 0.5 },
+        "paddingY": { "type": "number", "minimum": 0, "maximum": 0.5 }
+      }
+    },
+    "instances": {
+      "type": "array",
+      "items": { "$ref": "component-instance.schema.json" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "layoutMode": { "const": "grid" } } },
+      "then": { "required": ["grid"], "properties": { "grid": {} } }
+    },
+    {
+      "if": { "properties": { "layoutMode": { "const": "manual" } } },
+      "then": { "not": { "required": ["grid"] }, "properties": { "grid": {} } }
+    }
+  ]
+}

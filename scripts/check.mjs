@@ -15,4 +15,9 @@ await access(join(root, index.profile));
 for (const path of Object.values(index.schemas)) await readJson(join(versionRoot, path));
 for (const path of Object.values(index.fixtures)) await readJson(join(versionRoot, path));
 await readJson(join(root, 'profiles', 'we-web-workshop', 'project.schema.json'));
-console.log(`Core ${pkg.version}: index, schemas, fixtures, and WE profile are readable`);
+
+const draftRoot = join(root, 'drafts', '0.2.0');
+const draftIndex = await readJson(join(draftRoot, 'index.json'));
+for (const path of Object.values(draftIndex.schemas)) await readJson(join(draftRoot, path));
+for (const path of draftIndex.fixtures) await readJson(join(draftRoot, path));
+console.log(`Core ${pkg.version} and draft ${draftIndex.target}: indexes, schemas, fixtures, and WE profile are readable`);

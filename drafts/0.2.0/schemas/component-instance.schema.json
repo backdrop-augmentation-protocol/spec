@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/component-instance.schema.json",
+  "title": "BAP Component Instance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["instanceId", "componentId", "enabled", "userVisible", "layout", "config"],
+  "properties": {
+    "instanceId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$" },
+    "componentId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$" },
+    "sourceKey": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "enabled": { "type": "boolean" },
+    "userVisible": { "type": "boolean" },
+    "layout": { "$ref": "layout.schema.json" },
+    "config": { "type": "object", "additionalProperties": true }
+  }
+}

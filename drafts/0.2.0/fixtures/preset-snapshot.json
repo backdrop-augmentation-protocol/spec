@@ -1,0 +1,17 @@
+{
+  "presetId": "grid-desktop",
+  "revision": 8,
+  "updatedAt": "2026-10-31T00:00:00Z",
+  "layoutMode": "grid",
+  "grid": { "columns": 2, "gapX": 0.02, "gapY": 0.03, "paddingX": 0.04, "paddingY": 0.05 },
+  "instances": [
+    {
+      "instanceId": "clock-1",
+      "componentId": "org.example.clock",
+      "enabled": true,
+      "userVisible": true,
+      "layout": { "mode": "automatic", "order": 0, "scale": 1, "rotation": 0, "opacity": 1, "zIndex": 0, "locked": false },
+      "config": {}
+    }
+  ]
+}

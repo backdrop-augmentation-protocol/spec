@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/extension-selection.schema.json",
+  "title": "BAP Selected Extensions",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "version"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$", "maxLength": 128 },
+      "version": { "type": "string", "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$" }
+    }
+  }
+}

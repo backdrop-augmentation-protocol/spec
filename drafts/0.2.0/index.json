@@ -1,0 +1,24 @@
+{
+  "status": "draft",
+  "target": "0.2.0",
+  "extensions": {
+    "org.bap.composition": "0.1.0",
+    "org.bap.component-config": "0.1.0",
+    "org.bap.presentation": "0.1.0",
+    "org.bap.companion-control": "0.1.0"
+  },
+  "schemas": {
+    "extensionOffer": "schemas/extension-offer.schema.json",
+    "extensionSelection": "schemas/extension-selection.schema.json",
+    "componentInstance": "schemas/component-instance.schema.json",
+    "layout": "schemas/layout.schema.json",
+    "componentProperties": "schemas/component-properties.schema.json",
+    "presetSnapshot": "schemas/preset-snapshot.schema.json"
+  },
+  "fixtures": [
+    "fixtures/host-extension-offer.json",
+    "fixtures/extension-selection.json",
+    "fixtures/preset-multiple-instances.json",
+    "fixtures/preset-snapshot.json"
+  ]
+}
