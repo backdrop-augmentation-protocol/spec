@@ -102,11 +102,17 @@ Host 会话获授权后，Companion 发送最新完整快照；之后编辑发�
 | `composition.snapshot` | Companion → Host event | 应用完整预设快照 |
 | `composition.snapshot.applied` | Host → Companion event | 确认已应用修订 |
 | `composition.snapshot.rejected` | Host → Companion event | 报告校验/冲突拒绝 |
-| `presentation.scene.changed` | Host → Component event | 通知已协商场景 |
+| `presentation.scene.changed` | Host → Component event | 通知已协商场景状态 |
 | `presentation.visibility.changed` | Host → Component event | 通知有效可见性变化 |
-| `component.config.changed` | Host → Component event | 下发有效配置变更/修订 |
+| `component.config.changed` | Host → Component event | 下发有效配置快照/修订 |
 
-所有事件必须绑定活动会话；面向实例的消息必须包含 `instanceId`。未知或已停止实例的消息必须拒绝或忽略，不得影响其他实例。完整负载将在 SDK 实现前与可执行 fixtures 一起定稿。
+所有事件必须绑定活动会话；面向实例的消息必须包含 `instanceId`。未知或已停止实例的消息必须拒绝或忽略，不得影响其他实例。负载定义如下：
+
+- `presentation.scene.changed`：`{ instanceId, sceneId, revision, reason? }`。`sceneId` 是非空的不透明字符串；Host 场景变化时 `revision` 必须递增。
+- `presentation.visibility.changed`：`{ instanceId, visible }`，其中 `visible` 是 Host 计算后的有效可见状态。
+- `component.config.changed`：`{ instanceId, revision, config }`，其中 `config` 是完整的有效配置对象，不是补丁。有效快照变化时修订号必须递增。
+
+Component 必须忽略实例 ID 不匹配或修订过期的事件。Component SDK 在通知监听器前原子替换有效配置。以上是草案中扩展版本 0.1.0 的负载契约，冻结前必须由 fixtures 覆盖。
 
 ## 9. 草案产物及延期范围
 

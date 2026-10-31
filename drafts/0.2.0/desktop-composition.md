@@ -104,9 +104,15 @@ The selected extensions define these message names; payload schemas and directio
 | `composition.snapshot.rejected` | Host → Companion event | Report validation/conflict rejection |
 | `presentation.scene.changed` | Host → Component event | Notify negotiated scene state |
 | `presentation.visibility.changed` | Host → Component event | Notify effective visibility transition |
-| `component.config.changed` | Host → Component event | Deliver effective config patch/revision |
+| `component.config.changed` | Host → Component event | Deliver effective configuration snapshot/revision |
 
-Every event MUST be bound to the active session. Instance-targeted messages MUST include `instanceId`. Messages for unknown or stopped instances MUST be rejected or ignored without affecting other instances. Full message payloads will be finalized with executable fixtures before SDK implementation.
+Every event MUST be bound to the active session. Instance-targeted messages MUST include `instanceId`. Messages for unknown or stopped instances MUST be rejected or ignored without affecting other instances. The payloads defined here are:
+
+- `presentation.scene.changed`: `{ instanceId, sceneId, revision, reason? }`. `sceneId` is an opaque non-empty string; `revision` is a non-negative integer that increases when the Host scene changes.
+- `presentation.visibility.changed`: `{ instanceId, visible }`, where `visible` is the Host-computed effective visibility.
+- `component.config.changed`: `{ instanceId, revision, config }`, where `config` is the complete effective configuration object, not a patch. Revisions are non-negative and increase when the effective snapshot changes.
+
+Components MUST ignore events for a different instance ID and stale revisions. The Component SDK replaces its effective configuration atomically before notifying listeners. These payload contracts are draft 0.1.0 extension definitions and MUST be covered by fixtures before freeze.
 
 ## 9. Draft artifacts and deferred scope
 
