@@ -63,15 +63,13 @@ In manual mode every instance MUST use a manual layout record. In grid mode ever
 
 ## 5. Component properties and configuration
 
-Component-defined properties are optional declarative metadata, provided in a package sidecar such as `bap-desktop.json`, not by adding fields to the strict Core 0.1.0 manifest. Metadata MUST NOT contain executable code, arbitrary .NET types, markup, or dynamic control factories. Unsupported types are ignored with a diagnostic; generic instance controls remain available.
+For Wallpaper Engine web Components, BAPC MUST derive editable property definitions from that installed package's `project.json` `general.properties` object. A separate BAP property sidecar is not required. This reads declarations only; BAPC MUST NOT import the current value selected in Wallpaper Engine's standalone/user-property UI. Values edited in BAPC are stored as overrides on the specific preset occurrence, so repeated instances and different presets remain independent.
 
-Initial property types are Boolean, Number, String, Enum, and Color. Metadata provides a stable key, type, and default, with optional title, description, and validation constraints. Enum values are explicit strings. Consumers MUST validate persisted values and fall back to the declared default if invalid.
+BAPC 0.2.0 MUST support WE `bool`, `color`, `slider`, `combo`, and `textinput` properties, preserving raw value types and respecting declared defaults, bounds, steps, option values, labels, ordering, and supported display conditions. `file` and `directory` properties MUST NOT be exposed as editable controls in 0.2.0 because they represent user-selected local media, which is out of scope. BAPC MUST NOT persist or transfer values for these types. Unknown or invalid definitions MUST be safely ignored and reported as diagnostics; they MUST NOT prevent other properties or components from working.
 
-Effective instance configuration is resolved as:
+Display conditions MUST be interpreted only by a non-evaluating parser for the explicitly supported expression subset. Implementations MUST NOT execute JavaScript from project metadata. An unsupported condition MUST cause that property's control to be disabled with a diagnostic, not guessed or evaluated. Persisted overrides MUST be validated against the WE property definition and fall back to the declared default when invalid.
 
-`component defaults < global < series < wallpaper < preset instance overrides`
-
-The BAPC snapshot carries values needed by the active Host. Instance overrides are stored in the preset occurrence, allowing the same component to differ across presets. The Component SDK exposes effective configuration and change notifications; it does not own persistence. Configuration changes MUST NOT require restarting a Component unless a specific property is later defined to require restart.
+The BAPC snapshot carries effective values needed by the active Host. A property's effective value is its `project.json` declared default overlaid by that preset occurrence's validated override; Wallpaper Engine's standalone property state is never part of resolution. The Component SDK exposes effective configuration and change notifications; it does not own persistence. Configuration changes MUST NOT require restarting a Component unless a specific property is later defined to require restart.
 
 ## 6. Presentation and scene state
 
