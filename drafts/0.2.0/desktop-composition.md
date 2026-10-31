@@ -16,6 +16,8 @@ This draft specifies optional extensions for component instances, layout, declar
 
 The Core message envelope and Core protocol version remain unchanged. A Host MAY include an optional `extensions` array in `hello.payload`; a peer MAY include `selectedExtensions` in a successful `helloAck.result`. The same convention applies to Host-to-Companion sessions. These fields are in extensible payload/result objects, not new Core envelope fields.
 
+When offering `org.bap.composition`, the Host MUST include the active `instanceId` in `hello.payload`. The Component treats it as opaque routing context for instance-targeted configuration and presentation events. It is not an authenticated identity, permission grant, or proof of package origin. A Core-only peer MAY ignore it.
+
 Each offer contains an extension `id` and one or more exact SemVer versions. A successful selection MUST be the exact intersection of an offered ID/version and a supported ID/version. No implicit SemVer range selection is performed. Duplicate IDs are invalid. A receiver MUST ignore unknown extension IDs, MUST NOT enable an extension that was not selected, and MUST continue Core operation if no optional extension is selected. An extension-specific operation sent without a selected extension MUST receive `CAPABILITY_DENIED` or `UNSUPPORTED_PROFILE`, as appropriate.
 
 Initial extension IDs proposed by this draft:

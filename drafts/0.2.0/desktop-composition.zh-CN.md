@@ -16,6 +16,8 @@
 
 Core 消息封套和协议版本保持不变。Host 可在 `hello.payload` 中附带可选的 `extensions` 数组；对端可在成功的 `helloAck.result` 中附带 `selectedExtensions`。Host 与 Companion 会话采用相同约定。这些字段放在可扩展的 payload/result 中，不新增 Core 封套字段。
 
+Host 提供 `org.bap.composition` 时，必须在 `hello.payload` 中包含活动 `instanceId`。Component 将它视为实例级配置和呈现事件的不透明路由上下文。它不是经过认证的身份、权限授予或包来源证明。仅支持 Core 的对端可以忽略该字段。
+
 每项 offer 含扩展 `id` 和一个或多个精确 SemVer 版本。成功选择必须是双方声明的相同 ID 与版本，不隐式执行 SemVer 范围选择。重复 ID 无效。接收方必须忽略未知扩展，不得启用未选择的扩展；没有选中可选扩展时继续 Core 操作。未协商扩展时收到扩展专属操作，应返回适当的 `CAPABILITY_DENIED` 或 `UNSUPPORTED_PROFILE`。
 
 初始扩展 ID 草案：
