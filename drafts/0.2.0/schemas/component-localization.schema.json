@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/component-localization.schema.json",
+  "title": "BAP Component Property Localization Sidecar",
+  "description": "Optional labels for a component's Wallpaper Engine properties. Stored in bap-properties.json beside project.json without modifying Wallpaper Engine metadata or property values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "properties"],
+  "properties": {
+    "schemaVersion": { "const": "0.1.0" },
+    "properties": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,63}$" },
+      "additionalProperties": { "$ref": "#/$defs/propertyLabels" }
+    }
+  },
+  "$defs": {
+    "localizedLabels": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*$" },
+      "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 256 }
+    },
+    "propertyLabels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "labels": { "$ref": "#/$defs/localizedLabels" },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "labels"],
+            "properties": {
+              "value": { "type": ["string", "number", "boolean"] },
+              "labels": { "$ref": "#/$defs/localizedLabels" }
+            }
+          }
+        }
+      },
+      "anyOf": [{ "required": ["labels"] }, { "required": ["options"] }]
+    }
+  }
+}

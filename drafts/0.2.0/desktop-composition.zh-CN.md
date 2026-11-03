@@ -65,6 +65,8 @@ Host 将布局应用到 Component iframe 外的稳定容器。Component 不必�
 
 对于 Wallpaper Engine Web Component，BAPC 必须从该已安装包的 `project.json` 中读取 `general.properties` 对象，作为可编辑属性定义来源。不要求额外提供 BAP 属性 sidecar。这只读取属性声明；BAPC 不得导入 Wallpaper Engine 独立/用户属性界面当前选择的值。BAPC 中编辑的属性值作为覆盖值存储在预设中的具体组件条目上，因此重复实例和不同预设互相独立。
 
+作者可以在组件包根目录提供可选的 `bap-properties.json`，用于本地化属性名和组合框选项名。该 BAP sidecar 不得替代或修改 `project.json`，不得改变 Wallpaper Engine 属性 ID、默认值或属性值，也不是有效 WE 项目的必要条件。其结构必须符合 `component-localization.schema.json`。sidecar 缺失时 BAPC 必须忽略；sidecar 无效时不得阻止组件发现或属性编辑，并须给出诊断。对于请求的 BCP 47 语言标签，标签选择顺序为：忽略大小写的完整语言标签、匹配的主语言子标签、若 sidecar 恰好只有一种翻译则使用该翻译，否则回退到 `project.json` 的原始标签。组合框选项名遵循相同规则，并回退到原始选项名/值。sidecar 中未在 `project.json` 声明的属性或组合选项必须忽略并记录诊断。sidecar 只含显示标签，不包含配置值。
+
 BAPC 0.2.0 必须支持 WE 的 `bool`、`color`、`slider`、`combo` 和 `textinput` 属性，并保留原始值类型，遵循声明的默认值、范围、步长、选项值、标签、排序及受支持的显示条件。由于 `file` 和 `directory` 表示用户选择的本地媒体且媒体功能不在 0.2.0 范围内，这两类属性不得作为可编辑控件显示；BAPC 不得持久化或传递这两类属性的值。未知或无效定义必须安全忽略并记录诊断，不得影响其他属性或组件运行。
 
 显示条件只能通过不执行代码的解析器解释明确支持的表达式子集。实现不得执行项目元数据中的 JavaScript。遇到不支持的条件时，应禁用对应控件并记录诊断，不得猜测或求值。持久化覆盖值必须按 WE 属性定义校验；无效时回退到声明的默认值。

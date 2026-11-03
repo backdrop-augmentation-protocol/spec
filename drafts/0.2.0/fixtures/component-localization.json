@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "0.1.0",
+  "properties": {
+    "showSeconds": {
+      "labels": {
+        "en": "Show seconds",
+        "zh-CN": "显示秒数"
+      }
+    },
+    "timeFormat": {
+      "labels": {
+        "en": "Time format",
+        "zh-CN": "时间格式"
+      },
+      "options": [
+        { "value": "24h", "labels": { "en": "24-hour", "zh-CN": "24 小时制" } },
+        { "value": "12h", "labels": { "en": "12-hour", "zh-CN": "12 小时制" } }
+      ]
+    }
+  }
+}

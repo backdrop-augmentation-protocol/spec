@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/component-properties.schema.json",
   "title": "Wallpaper Engine Property Projection for BAPC",
-  "description": "Normalized projection of project.json general.properties. This is not a required package sidecar and excludes Wallpaper Engine's current user-selected values.",
+  "description": "Normalized projection of project.json general.properties. Optional BAP-only labels may be supplied separately using bap-properties.json; this projection excludes Wallpaper Engine's current user-selected values.",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "properties"],

@@ -13,12 +13,14 @@
     "componentInstance": "schemas/component-instance.schema.json",
     "layout": "schemas/layout.schema.json",
     "componentProperties": "schemas/component-properties.schema.json",
+    "componentLocalization": "schemas/component-localization.schema.json",
     "presetSnapshot": "schemas/preset-snapshot.schema.json"
   },
   "fixtures": [
     "fixtures/host-extension-offer.json",
     "fixtures/extension-selection.json",
     "fixtures/preset-multiple-instances.json",
-    "fixtures/preset-snapshot.json"
+    "fixtures/preset-snapshot.json",
+    "fixtures/component-localization.json"
   ]
 }
