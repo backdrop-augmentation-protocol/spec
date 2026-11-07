@@ -83,7 +83,7 @@ Core 生命周期与呈现状态分离；Component 可以处于 `running` 但不
 
 Host 对场景和最终可见性拥有权威。Component 可观察已协商的呈现事件并执行过渡，但不能覆盖 Host 可见性、在隐藏时接收输入，或违背 Host 策略自行显示。隐藏必须使实例从命中测试中移除。`runtimeReady` 仅在达到 Host 定义的就绪状态后为真。
 
-场景 ID 是 Host 定义的不透明字符串。事件传递场景 ID、revision 和可选原因，不假设特定产品语义。revision 在单个 Host runtime 范围内计数，仅在场景 ID 改变时递增。若在 Component 完成握手前设置场景，Host 必须在扩展协商后发送最新场景；后续变化发送给已选择 `org.bap.presentation` 的运行实例。仅支持 Core 的 Component 可不接收场景事件。事件 payload 必须符合 `presentation-scene-changed.schema.json`。
+场景 ID 是 Host 定义的不透明字符串。事件传递场景 ID、revision 和可选原因，不假设特定产品语义。revision 在单个 Host runtime 范围内计数，仅在场景 ID 改变时递增。若在 Component 完成握手前设置场景，Host 必须在扩展协商后发送最新场景；后续变化发送给已选择 `org.bap.presentation` 的活动实例。仅支持 Core 的 Component 可不接收场景事件。事件 payload 必须符合 `presentation-scene-changed.schema.json`。
 
 ## 7. Companion 快照同步
 
