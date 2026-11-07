@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/presentation-scene-changed.schema.json",
+  "title": "BAP Presentation Scene Changed Event Payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["instanceId", "sceneId", "revision"],
+  "properties": {
+    "instanceId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$" },
+    "sceneId": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "revision": { "type": "integer", "minimum": 0 },
+    "reason": { "type": "string", "maxLength": 256 }
+  }
+}

@@ -83,7 +83,7 @@ Core lifecycle and presentation are separate. A Component MAY be `running` while
 
 The Host is authoritative for scene state and effective visibility. A Component may observe negotiated presentation events and perform transitions, but cannot override Host visibility, receive input while hidden, or show itself against Host policy. Hiding MUST remove the instance from hit testing. `runtimeReady` becomes true only after the Host-defined ready state.
 
-Scene identifiers are Host-defined opaque strings. Events carry scene ID, revision, and optional reason, without assuming product-specific semantics. Core-only Components continue to work without scene events.
+Scene identifiers are Host-defined opaque strings. Events carry scene ID, revision, and optional reason, without assuming product-specific semantics. Revisions are scoped to one Host runtime and increase only when the scene ID changes. When a scene is set before a Component finishes its handshake, the Host MUST deliver the latest scene after negotiation; later changes are delivered to each running instance that selected `org.bap.presentation`. Core-only Components continue to work without scene events. The event payload MUST validate against `presentation-scene-changed.schema.json`.
 
 ## 7. Companion snapshot synchronization
 
