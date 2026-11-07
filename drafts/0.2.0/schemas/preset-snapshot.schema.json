@@ -4,7 +4,7 @@
   "title": "BAP Effective Composition Snapshot",
   "type": "object",
   "additionalProperties": false,
-  "required": ["presetId", "revision", "updatedAt", "layoutMode", "grid", "instances"],
+  "required": ["presetId", "revision", "updatedAt", "layoutMode", "instances"],
   "properties": {
     "presetId": { "type": "string", "minLength": 1, "maxLength": 128 },
     "revision": { "type": "integer", "minimum": 0 },

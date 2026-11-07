@@ -3,7 +3,6 @@
   "revision": 3,
   "updatedAt": "2026-10-31T00:00:00Z",
   "layoutMode": "manual",
-  "grid": null,
   "instances": [
     {
       "instanceId": "clock-left",

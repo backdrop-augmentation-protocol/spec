@@ -4,7 +4,7 @@
   "title": "BAP Effective Composition Instance",
   "type": "object",
   "additionalProperties": false,
-  "required": ["instanceId", "componentId", "sourceKey", "name", "status", "embeddedPath", "enabled", "userVisible", "layout", "config", "configRevision"],
+  "required": ["instanceId", "componentId", "name", "status", "enabled", "userVisible", "layout", "config", "configRevision"],
   "properties": {
     "instanceId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$" },
     "componentId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$" },

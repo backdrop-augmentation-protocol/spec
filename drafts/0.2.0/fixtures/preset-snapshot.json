@@ -8,7 +8,6 @@
     {
       "instanceId": "clock-1",
       "componentId": "org.example.clock",
-      "sourceKey": null,
       "name": "Example Clock",
       "status": "available",
       "embeddedPath": "embedded.html",
