@@ -3,10 +3,14 @@
   "revision": 3,
   "updatedAt": "2026-10-31T00:00:00Z",
   "layoutMode": "manual",
+  "grid": null,
   "instances": [
     {
       "instanceId": "clock-left",
       "componentId": "org.example.clock",
+      "name": "Example Clock",
+      "status": "available",
+      "embeddedPath": "embedded.html",
       "sourceKey": "workshop:3825045374",
       "enabled": true,
       "userVisible": true,
@@ -15,11 +19,15 @@
         "width": 0.2, "height": 0.12, "scale": 1, "rotation": 0,
         "opacity": 1, "zIndex": 10, "locked": false
       },
-      "config": { "timeFormat": "24h" }
+      "config": { "timeFormat": "24h" },
+      "configRevision": 3
     },
     {
       "instanceId": "clock-right",
       "componentId": "org.example.clock",
+      "name": "Example Clock",
+      "status": "available",
+      "embeddedPath": "embedded.html",
       "sourceKey": "workshop:3825045374",
       "enabled": true,
       "userVisible": true,
@@ -28,7 +36,8 @@
         "width": 0.2, "height": 0.12, "scale": 0.8, "rotation": 0,
         "opacity": 0.9, "zIndex": 11, "locked": false
       },
-      "config": { "timeFormat": "12h", "showSeconds": true }
+      "config": { "timeFormat": "12h", "showSeconds": true },
+      "configRevision": 3
     }
   ]
 }

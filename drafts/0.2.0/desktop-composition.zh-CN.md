@@ -87,11 +87,11 @@ Host 对场景和最终可见性拥有权威。Component 可观察已协商的�
 
 ## 7. Companion 快照同步
 
-Companion 是已保存预设内容的权威来源。快照包含 `presetId`、预设内单调递增的 `revision`、`updatedAt`、布局模式/设置及完整有序实例列表。应用快照是对活动预设状态的原子替换，不是增量合并。
+Companion 是已保存预设内容的权威来源。在此 Companion-Control Profile 中，Host 从已授权的 Companion API 获取完整有效组合快照；连接期间由 Host 轮询，HTTP 响应不得由缓存提供。快照包含 `presetId`、所选预设已持久化内容的单调递增 `revision`、`updatedAt`、布局模式/设置及完整有序实例列表。每个实例还包含目录推导的有效字段，例如显示名称、可用性 `status`、可用时的嵌入入口、解析后的配置和 `configRevision`。快照是完整替换，不是增量合并。由于响应包含用户配置值，Companion API 必须同时要求组件发现权限和配置读取权限。
 
-Host 会话获授权后，Companion 发送最新完整快照；之后编辑发送修订严格递增的新快照。Host 校验完整快照后应用并确认修订。无效快照整体拒绝，不得部分应用。同一修订且内容相同可幂等处理；较低修订为过期；同一修订但内容不同为冲突。重连后重新接收完整快照，不恢复旧会话的授权或运行状态。
+预设 `revision` 在已保存预设内容变化时递增，不代表已安装目录变化。因此，目录推导的可用性、解析后的默认值或资源路径可以在 `presetId` 和 `revision` 不变时变化。Host 必须将不同的 `presetId` 视为新的修订序列；同一 `presetId` 下较低的 revision 已过期，必须忽略；较高 revision 是新快照；相同 revision 仍必须重新评估，因为派生字段可能变化。重复应用未变化的有效快照必须幂等。不得仅凭修订号相同就判定内容冲突。Host 必须在产生副作用前校验完整响应；无效响应不得改变最后一个有效组合，并应在后续轮询重试。有效响应会原子替换逻辑组合；单个组件的加载/运行失败应彼此隔离，不得回滚其他健康实例。重连后重新获取完整快照，不恢复旧会话的授权或运行状态。
 
-拖动/滑块更新可在内存中节流预览；持久化在提交/防抖时进行，不得逐帧写盘。新更新失败时保留最近有效快照。传输绑定现有授权会话，本扩展不定义未授权管理端点。
+Companion 在写入失败时必须保留最后一个有效的持久化预设。拖动/滑块更新可在内存中节流预览；持久化在提交/防抖时进行，不得逐帧写盘。快照 API 仍受现有授权会话保护，不得提供未授权的管理端点。轮询频率属于实现策略；名义轮询间隔不构成端到端延迟保证。
 
 ## 8. 扩展消息目录（草案）
 
@@ -99,9 +99,6 @@ Host 会话获授权后，Companion 发送最新完整快照；之后编辑发�
 
 | 名称 | 方向 | 用途 |
 | --- | --- | --- |
-| `composition.snapshot` | Companion → Host event | 应用完整预设快照 |
-| `composition.snapshot.applied` | Host → Companion event | 确认已应用修订 |
-| `composition.snapshot.rejected` | Host → Companion event | 报告校验/冲突拒绝 |
 | `presentation.scene.changed` | Host → Component event | 通知已协商场景状态 |
 | `presentation.visibility.changed` | Host → Component event | 通知有效可见性变化 |
 | `component.config.changed` | Host → Component event | 下发有效配置快照/修订 |

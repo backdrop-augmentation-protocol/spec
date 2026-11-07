@@ -27,7 +27,7 @@ Initial extension IDs proposed by this draft:
 | `org.bap.composition` | Component instances, layout, and preset snapshots |
 | `org.bap.component-config` | Declarative component properties and instance configuration |
 | `org.bap.presentation` | Host scene and effective visibility state |
-| `org.bap.companion-control` | Authorized preset snapshot delivery and acknowledgements |
+| `org.bap.companion-control` | Authorized preset snapshot retrieval |
 
 These identifiers and versions are draft values until the RFC is frozen. Capability names remain useful for feature discovery, but do not replace extension negotiation.
 
@@ -87,11 +87,11 @@ Scene identifiers are Host-defined opaque strings. Events carry scene ID, revisi
 
 ## 7. Companion snapshot synchronization
 
-The Companion is authoritative for saved preset content. A snapshot contains `presetId`, monotonically increasing per-preset `revision`, `updatedAt`, layout mode/settings, and the full ordered instance list. Applying a snapshot atomically replaces active preset state; it is not an incremental merge.
+The Companion is authoritative for saved preset content. For this Companion-Control profile, the Host retrieves a complete effective-composition snapshot from the authorized Companion API; it polls while connected and the response MUST NOT be served from an HTTP cache. A snapshot contains `presetId`, the selected preset's monotonically increasing persisted `revision`, `updatedAt`, layout mode/settings, and the full ordered instance list. Each instance also carries effective catalog-derived fields such as display name, availability `status`, embedded entry path when available, resolved configuration, and `configRevision`. The snapshot is a full replacement, not an incremental merge. The Companion API MUST require both component-discovery and configuration-read authorization because the response contains user configuration values.
 
-On an authorized Host session, the Companion sends the latest complete snapshot. Subsequent edits send a newer full snapshot with a strictly greater revision. The Host validates the entire snapshot before applying and acknowledges the applied revision. Invalid snapshots are rejected without partial application. The same revision and same content is idempotent; a lower revision is stale; the same revision with different content is a conflict. After reconnect, the Host receives a fresh full snapshot and does not restore authorization or runtime state from the old session.
+The preset `revision` increases when saved preset content changes and does not represent changes to the installed catalog. Catalog-derived availability, resolved defaults, or resource paths MAY therefore change while `presetId` and `revision` remain unchanged. The Host MUST accept a different `presetId` as a new revision stream; for the same `presetId`, a lower revision is stale and MUST be ignored, a higher revision is new, and an equal revision MUST be re-evaluated because derived fields may have changed. Reapplying an unchanged effective snapshot MUST be idempotent. Revision equality alone MUST NOT be treated as a content-conflict signal. The Host MUST validate the complete response before causing side effects; an invalid response MUST leave the last valid composition active and be retried on a later poll. A valid response atomically replaces the logical composition; individual component load/runtime failures remain isolated and MUST NOT roll back unrelated healthy instances. After reconnect, the Host fetches a fresh full snapshot and does not restore authorization or runtime state from the old session.
 
-Drag/slider updates MAY be previewed in memory at a throttled rate. Durable writes occur on commit/debounce, not every rendered frame. If a newer update fails, the Companion MUST preserve the last valid snapshot. Delivery uses the existing authorized session boundary; this extension does not define an unauthenticated management endpoint.
+The Companion MUST preserve the last valid persisted preset if a write fails. Drag/slider updates MAY be previewed in memory at a throttled rate; durable writes occur on commit/debounce, not every rendered frame. The snapshot API remains behind the existing authorized session boundary and MUST NOT provide an unauthenticated management endpoint. Poll cadence is implementation policy; a nominal polling interval is not an end-to-end latency guarantee.
 
 ## 8. Draft extension message catalog
 
@@ -99,9 +99,6 @@ The selected extensions define these message names; payload schemas and directio
 
 | Name | Direction | Purpose |
 | --- | --- | --- |
-| `composition.snapshot` | Companion → Host event | Apply complete preset snapshot |
-| `composition.snapshot.applied` | Host → Companion event | Confirm applied revision |
-| `composition.snapshot.rejected` | Host → Companion event | Report validation/conflict rejection |
 | `presentation.scene.changed` | Host → Component event | Notify negotiated scene state |
 | `presentation.visibility.changed` | Host → Component event | Notify effective visibility transition |
 | `component.config.changed` | Host → Component event | Deliver effective configuration snapshot/revision |

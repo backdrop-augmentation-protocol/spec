@@ -8,10 +8,14 @@
     {
       "instanceId": "clock-1",
       "componentId": "org.example.clock",
+      "name": "Example Clock",
+      "status": "available",
+      "embeddedPath": "embedded.html",
       "enabled": true,
       "userVisible": true,
       "layout": { "mode": "automatic", "order": 0, "scale": 1, "rotation": 0, "opacity": 1, "zIndex": 0, "locked": false },
-      "config": {}
+      "config": {},
+      "configRevision": 8
     }
   ]
 }
