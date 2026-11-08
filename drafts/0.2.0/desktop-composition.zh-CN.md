@@ -26,7 +26,7 @@ Host 提供 `org.bap.composition` 时，必须在 `hello.payload` 中包含活�
 | --- | --- |
 | `org.bap.composition` | 组件实例、布局与预设快照 |
 | `org.bap.component-config` | 声明式组件属性和实例配置 |
-| `org.bap.presentation` | Host 场景和有效可见状态 |
+| `org.bap.presentation` | Host 控制的组件有效可见状态 |
 | `org.bap.companion-control` | 已授权预设快照交付和确认 |
 
 扩展 ID 与版本在 RFC 冻结前均为草案值。能力名称仍可用于功能发现，但不能取代扩展版本协商。
@@ -73,17 +73,15 @@ BAPC 0.2.0 必须支持 WE 的 `bool`、`color`、`slider`、`combo` 和 `textin
 
 BAPC 快照携带活动 Host 所需的有效值。属性有效值为 `project.json` 声明的默认值叠加该预设组件条目上经校验的覆盖值；Wallpaper Engine 独立属性状态不参与解析。Component SDK 提供有效配置和变更通知，不负责持久化。配置变化原则上不得重启组件；如确有属性需要重启，须另行定义。
 
-## 6. 呈现与场景状态
+## 6. 有效可见状态
 
 Core 生命周期与呈现状态分离；Component 可以处于 `running` 但不可见。Host 计算：
 
-`effectiveVisible = enabled && userVisible && sceneAllowed && runtimeReady`
+`effectiveVisible = enabled && userVisible && runtimeReady`
 
-`enabled=false` 表示实例不属于活动组合，可停止/卸载。`userVisible=false` 或 `sceneAllowed=false` 隐藏现有实例但不销毁。恢复显示时复用健康实例，不重复 Core 握手。Host 可延迟首次挂载，直到场景允许启动。
+`enabled=false` 表示实例不属于活动组合，可停止/卸载。`userVisible=false` 隐藏现有实例但不销毁。恢复显示时复用健康实例，不重复 Core 握手。
 
-Host 对场景和最终可见性拥有权威。Component 可观察已协商的呈现事件并执行过渡，但不能覆盖 Host 可见性、在隐藏时接收输入，或违背 Host 策略自行显示。隐藏必须使实例从命中测试中移除。`runtimeReady` 仅在达到 Host 定义的就绪状态后为真。
-
-场景 ID 是 Host 定义的不透明字符串。事件传递场景 ID、修订和可选原因，不假设特定产品语义。仅支持 Core 的 Component 不受场景事件影响。
+Host 对最终可见性拥有权威。Component 可观察已协商的可见性事件并执行过渡，但不能覆盖 Host 可见性、在隐藏时接收输入，或违背 Host 策略自行显示。隐藏必须使实例从命中测试中移除。`runtimeReady` 仅在达到 Host 定义的就绪状态后为真。
 
 ## 7. Companion 快照同步
 
@@ -99,13 +97,11 @@ Companion 在写入失败时必须保留最后一个有效的持久化预设。�
 
 | 名称 | 方向 | 用途 |
 | --- | --- | --- |
-| `presentation.scene.changed` | Host → Component event | 通知已协商场景状态 |
 | `presentation.visibility.changed` | Host → Component event | 通知有效可见性变化 |
 | `component.config.changed` | Host → Component event | 下发有效配置快照/修订 |
 
 所有事件必须绑定活动会话；面向实例的消息必须包含 `instanceId`。未知或已停止实例的消息必须拒绝或忽略，不得影响其他实例。负载定义如下：
 
-- `presentation.scene.changed`：`{ instanceId, sceneId, revision, reason? }`。`sceneId` 是非空的不透明字符串；Host 场景变化时 `revision` 必须递增。
 - `presentation.visibility.changed`：`{ instanceId, visible }`，其中 `visible` 是 Host 计算后的有效可见状态。
 - `component.config.changed`：`{ instanceId, revision, config }`，其中 `config` 是完整的有效配置对象，不是补丁。有效快照变化时修订号必须递增。
 

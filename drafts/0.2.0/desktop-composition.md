@@ -26,7 +26,7 @@ Initial extension IDs proposed by this draft:
 | --- | --- |
 | `org.bap.composition` | Component instances, layout, and preset snapshots |
 | `org.bap.component-config` | Declarative component properties and instance configuration |
-| `org.bap.presentation` | Host scene and effective visibility state |
+| `org.bap.presentation` | Host-controlled effective component visibility |
 | `org.bap.companion-control` | Authorized preset snapshot retrieval |
 
 These identifiers and versions are draft values until the RFC is frozen. Capability names remain useful for feature discovery, but do not replace extension negotiation.
@@ -73,17 +73,15 @@ Display conditions MUST be interpreted only by a non-evaluating parser for the e
 
 The BAPC snapshot carries effective values needed by the active Host. A property's effective value is its `project.json` declared default overlaid by that preset occurrence's validated override; Wallpaper Engine's standalone property state is never part of resolution. The Component SDK exposes effective configuration and change notifications; it does not own persistence. Configuration changes MUST NOT require restarting a Component unless a specific property is later defined to require restart.
 
-## 6. Presentation and scene state
+## 6. Effective visibility
 
 Core lifecycle and presentation are separate. A Component MAY be `running` while not visible. The Host computes:
 
-`effectiveVisible = enabled && userVisible && sceneAllowed && runtimeReady`
+`effectiveVisible = enabled && userVisible && runtimeReady`
 
-`enabled=false` means the instance is not part of the active composition and may be stopped/unmounted. `userVisible=false` or `sceneAllowed=false` hides the existing instance without destroying it. Restoring visibility MUST reuse a healthy instance and MUST NOT repeat the Core handshake. A Host MAY defer the first mount until the scene permits startup.
+`enabled=false` means the instance is not part of the active composition and may be stopped/unmounted. `userVisible=false` hides the existing instance without destroying it. Restoring visibility MUST reuse a healthy instance and MUST NOT repeat the Core handshake.
 
-The Host is authoritative for scene state and effective visibility. A Component may observe negotiated presentation events and perform transitions, but cannot override Host visibility, receive input while hidden, or show itself against Host policy. Hiding MUST remove the instance from hit testing. `runtimeReady` becomes true only after the Host-defined ready state.
-
-Scene identifiers are Host-defined opaque strings. Events carry scene ID, revision, and optional reason, without assuming product-specific semantics. Core-only Components continue to work without scene events.
+The Host is authoritative for effective visibility. A Component may observe negotiated visibility events and perform transitions, but cannot override Host visibility, receive input while hidden, or show itself against Host policy. Hiding MUST remove the instance from hit testing. `runtimeReady` becomes true only after the Host-defined ready state.
 
 ## 7. Companion snapshot synchronization
 
@@ -99,13 +97,11 @@ The selected extensions define these message names; payload schemas and directio
 
 | Name | Direction | Purpose |
 | --- | --- | --- |
-| `presentation.scene.changed` | Host → Component event | Notify negotiated scene state |
 | `presentation.visibility.changed` | Host → Component event | Notify effective visibility transition |
 | `component.config.changed` | Host → Component event | Deliver effective configuration snapshot/revision |
 
 Every event MUST be bound to the active session. Instance-targeted messages MUST include `instanceId`. Messages for unknown or stopped instances MUST be rejected or ignored without affecting other instances. The payloads defined here are:
 
-- `presentation.scene.changed`: `{ instanceId, sceneId, revision, reason? }`. `sceneId` is an opaque non-empty string; `revision` is a non-negative integer that increases when the Host scene changes.
 - `presentation.visibility.changed`: `{ instanceId, visible }`, where `visible` is the Host-computed effective visibility.
 - `component.config.changed`: `{ instanceId, revision, config }`, where `config` is the complete effective configuration object, not a patch. Revisions are non-negative and increase when the effective snapshot changes.
 
