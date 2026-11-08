@@ -37,6 +37,8 @@ Host 提供 `org.bap.composition` 时，必须在 `hello.payload` 中包含活�
 
 实例 ID 在该条目生命周期内保持稳定，包括预设重命名和应用重启。复制预设时，为复制的条目生成新 ID；删除后重新添加组件也生成新 ID。因为一个 Host 组合一次只应用一个预设，ID 只需在预设内唯一。每个活动实例有独立容器、协议会话、生命周期和故障状态。
 
+组件作者可以在包根目录提供可选的 `bap-component.json` sidecar，声明 `maxInstances`。该文件必须符合 `component-metadata.schema.json`；`maxInstances` 必须是正整数。省略时表示作者未声明数量上限。限制按单个预设内的 `componentId` 计数，跨越所有安装来源，并包含已禁用条目；它不要求组件必须存在，且各预设分别计算。Companion 必须阻止添加或保存超出声明上限的预设，并说明达到上限的组件。sidecar 缺失或无效不得阻止组件发现；无效 sidecar 必须产生诊断，并按未声明上限处理。该 sidecar 不修改 Core Manifest 或 Wallpaper Engine 项目元数据。
+
 从 Core 0.1.0 预设迁移时，保留组件身份、来源、顺序和启用状态；每项只生成并持久化一次 ID，替换源数据前备份并原子写入。新扩展不可用时，迁移后的预设仍可使用兼容旧行为的默认布局。
 
 ## 4. 布局模型

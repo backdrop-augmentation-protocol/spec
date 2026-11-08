@@ -14,6 +14,7 @@
     "layout": "schemas/layout.schema.json",
     "componentProperties": "schemas/component-properties.schema.json",
     "componentLocalization": "schemas/component-localization.schema.json",
+    "componentMetadata": "schemas/component-metadata.schema.json",
     "presetSnapshot": "schemas/preset-snapshot.schema.json"
   },
   "fixtures": [
@@ -21,6 +22,7 @@
     "fixtures/extension-selection.json",
     "fixtures/preset-multiple-instances.json",
     "fixtures/preset-snapshot.json",
-    "fixtures/component-localization.json"
+    "fixtures/component-localization.json",
+    "fixtures/component-metadata-single-instance.json"
   ]
 }

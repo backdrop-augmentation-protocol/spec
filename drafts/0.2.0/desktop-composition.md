@@ -37,6 +37,8 @@ These identifiers and versions are draft values until the RFC is frozen. Capabil
 
 An `instanceId` is stable for the lifetime of that occurrence, including preset rename and application restart. Copying a preset creates new IDs for copied occurrences. Removing and later re-adding a component creates a new ID. IDs need only be unique within a preset because one preset is active per Host composition. Each active instance has independent container, protocol session, lifecycle, and failure state.
 
+Component authors MAY provide an optional `bap-component.json` package-root sidecar to declare `maxInstances`. The sidecar MUST validate against `component-metadata.schema.json`; `maxInstances` MUST be a positive integer. When omitted, no package-declared limit applies. The limit is counted by `componentId` across all sources in one preset, including disabled occurrences, and does not require that any instance be present. It is independent for each preset. A Companion MUST prevent adding or saving a preset that exceeds the declared limit and MUST explain which component reached its limit. An invalid or absent sidecar MUST NOT prevent component discovery; an invalid sidecar MUST be diagnosed and treated as having no declared limit. The sidecar does not modify the Core manifest or Wallpaper Engine project metadata.
+
 Migration from a Core 0.1.0 preset MUST preserve component identity, source selection, ordering, and enabled state. It MUST assign and persist IDs exactly once, back up the source data before replacement, and use an atomic write. A migrated preset remains usable when the new extension is unavailable; the Host may use a legacy-compatible default arrangement.
 
 ## 4. Layout model

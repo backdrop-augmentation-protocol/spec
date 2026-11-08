@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/drafts/0.2.0/schemas/component-metadata.schema.json",
+  "title": "BAP Component Metadata Sidecar",
+  "description": "Optional package metadata that does not alter the Core 0.1.0 manifest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion"],
+  "properties": {
+    "schemaVersion": { "const": "0.1.0" },
+    "maxInstances": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "description": "Maximum number of occurrences of this component ID in one preset. Omit for no declared limit."
+    }
+  }
+}
