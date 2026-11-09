@@ -1,6 +1,10 @@
 {
   "status": "draft",
   "target": "0.2.0",
+  "coreHostRuntimeApi": {
+    "en": "core-host-runtime-api.md",
+    "zh-CN": "core-host-runtime-api.zh-CN.md"
+  },
   "extensions": {
     "org.bap.composition": "0.1.0",
     "org.bap.component-config": "0.1.0",
