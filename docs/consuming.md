@@ -6,22 +6,27 @@ implementation repository.
 
 ## Package consumption
 
-The npm package is:
+The npm package release bundle is:
 
 ```text
-@backdrop-augmentation-protocol/spec@0.1.0
+@backdrop-augmentation-protocol/spec@0.2.0
 ```
 
-The package exports the release index as its root export and exposes versioned
-schema and fixture paths:
+The package root exports the 0.2.0 bundle index. That index identifies the
+unchanged Core protocol version (0.1.0) separately from the npm package version
+(0.2.0), and lists optional extension versions and artifacts. The package also
+retains the versioned Core 0.1.0 schemas and fixtures:
 
 ```js
 import release from "@backdrop-augmentation-protocol/spec" with { type: "json" };
+import coreIndex from "@backdrop-augmentation-protocol/spec/core" with { type: "json" };
 import manifestSchema from "@backdrop-augmentation-protocol/spec/schemas/manifest.schema.json" with { type: "json" };
 ```
 
-The package root is a release index, not an implementation library. It lists
-the protocol identity, profile, schema paths, and fixture paths.
+The package root is a release bundle index, not an implementation library. The
+`./core` export selects the immutable Core 0.1.0 index; legacy `./schemas/*`
+and `./fixtures/*` exports continue to point to Core 0.1.0. Resolve extension
+paths from the 0.2.0 bundle index.
 
 ## Repository or URL consumption
 
@@ -35,6 +40,9 @@ versions/0.1.0/schemas/manifest.schema.json
 versions/0.1.0/schemas/message.schema.json
 versions/0.1.0/schemas/error.schema.json
 versions/0.1.0/fixtures/
+versions/0.2.0/index.json
+versions/0.2.0/schemas/
+versions/0.2.0/fixtures/
 ```
 
 Schema `$id` values and relative `$ref` values are part of the release
@@ -46,10 +54,11 @@ enabled.
 
 ## Version selection
 
-Use the protocol version in the release index and in every manifest/message.
-Implementations should pin an exact `0.1.0` release for the MVP. A later
-version receives a new `versions/<protocol-version>/` directory and a new
-package release; existing versioned contents are not overwritten.
+Use the Core protocol version from the selected index in every Core manifest
+and message. Optional extension versions are negotiated independently. A new
+package bundle may therefore have a different version from the Core protocol;
+each published bundle and protocol directory is immutable and receives a new
+versioned path rather than overwriting an earlier release.
 
 The Core Profile document defines behavior that JSON Schema cannot express,
 including lifecycle sequencing, capability negotiation, and error semantics.

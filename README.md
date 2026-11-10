@@ -5,16 +5,18 @@ English | [简体中文](README.zh-CN.md)
 Normative protocol specification, machine-readable schemas, and interoperability
 fixtures for the WE Backdrop Augmentation Protocol (BAP).
 
-The current repository contains the MVP Core Profile. Official SDKs are reference
-implementations, not the only valid implementations.
+The repository publishes versioned specification bundles. Bundle 0.2.0 retains
+the immutable BAP Core Profile 0.1.0 and adds independently versioned optional
+extensions. Official SDKs are reference implementations, not the only valid
+implementations.
 
 For WE Web wallpapers, the additional [Web/Workshop distribution checks](profiles/we-web-workshop/README.md)
 cover the package and editor handoff without changing the Core wire protocol.
 
-The package is named `@backdrop-augmentation-protocol/spec` at version
-`0.1.0`. The versioned Core index is `versions/0.1.0/index.json`.
-Consumers should resolve schemas and fixtures from that index or from the
-package exports rather than copying protocol definitions.
+The package release version is distinct from the wire protocol version. The
+root package index is `versions/0.2.0/index.json`; the Core 0.1.0 index remains
+at `versions/0.1.0/index.json`. Consumers should resolve schemas and fixtures
+from the selected index rather than copying protocol definitions.
 
 ## Layout
 
@@ -23,6 +25,8 @@ package exports rather than copying protocol definitions.
 - `versions/0.1.0/` — immutable Core Profile release contents.
 - `versions/0.1.0/schemas/` — JSON Schema 2020-12 definitions for wire and package data.
 - `versions/0.1.0/fixtures/` — valid and invalid examples used by conformance tooling.
+- `versions/0.2.0/` — specification bundle for Core 0.1.0 and optional extensions.
+- `versions/0.2.0/schemas/` and `versions/0.2.0/fixtures/` — extension schemas and fixtures.
 
 The schemas are intended to validate documents and individual messages. They do
 not replace the state-machine and sequencing rules in the normative document.

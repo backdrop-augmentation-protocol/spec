@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://backdrop-augmentation-protocol.github.io/spec/versions/0.2.0/schemas/component-instance.schema.json",
+  "title": "BAP Effective Composition Instance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["instanceId", "componentId", "name", "status", "enabled", "userVisible", "layout", "config", "configRevision"],
+  "properties": {
+    "instanceId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$" },
+    "componentId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$" },
+    "sourceKey": { "type": ["string", "null"], "minLength": 1, "maxLength": 512 },
+    "name": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "status": { "enum": ["available", "unavailable", "missing", "disabled"] },
+    "embeddedPath": { "type": ["string", "null"], "minLength": 1, "maxLength": 512 },
+    "enabled": { "type": "boolean" },
+    "userVisible": { "type": "boolean" },
+    "layout": { "$ref": "layout.schema.json" },
+    "config": { "type": "object", "additionalProperties": true },
+    "configRevision": { "type": "integer", "minimum": 0 }
+  }
+}
