@@ -81,9 +81,9 @@ Core lifecycle and presentation are separate. A Component MAY be `running` while
 
 `effectiveVisible = enabled && userVisible && runtimeReady`
 
-`enabled=false` means the instance is not part of the active composition and may be stopped/unmounted. `userVisible=false` hides the existing instance without destroying it. Restoring visibility MUST reuse a healthy instance and MUST NOT repeat the Core handshake.
+`enabled=false` means the instance is not part of the active composition. The Host MUST NOT present or hit-test it and MAY stop or unmount it; this is distinct from a visibility change. `userVisible=false` hides the existing instance without stopping or destroying it. Restoring visibility MUST reuse a healthy instance and MUST NOT repeat the Core handshake. A Host lifecycle state of `running` or `paused` is runtime-ready; other states are not.
 
-The Host is authoritative for effective visibility. A Component may observe negotiated visibility events and perform transitions, but cannot override Host visibility, receive input while hidden, or show itself against Host policy. Hiding MUST remove the instance from hit testing. `runtimeReady` becomes true only after the Host-defined ready state.
+The Host is authoritative for effective visibility. When `org.bap.presentation` is negotiated, the Host MUST send the initial effective visibility after the Component reaches `running`, and MUST send subsequent changes when the computed value changes. A Component may observe these events and perform transitions, but cannot override Host visibility, receive input while hidden, or show itself against Host policy. Hiding MUST remove the instance from hit testing. Presentation in this version is visibility-only; scene selection, scene transitions, animation control, and scene-derived visibility gates are out of scope.
 
 ## 7. Companion snapshot synchronization
 

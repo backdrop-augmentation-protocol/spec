@@ -81,9 +81,9 @@ Core 生命周期与呈现状态分离；Component 可以处于 `running` 但不
 
 `effectiveVisible = enabled && userVisible && runtimeReady`
 
-`enabled=false` 表示实例不属于活动组合，可停止/卸载。`userVisible=false` 隐藏现有实例但不销毁。恢复显示时复用健康实例，不重复 Core 握手。
+`enabled=false` 表示实例不属于活动组合。Host 不得呈现或命中测试该实例，但可以停止或卸载它；这与单纯改变可见性不同。`userVisible=false` 隐藏现有实例，但不得停止或销毁它。恢复显示时必须复用健康实例，不得重复 Core 握手。Host 生命周期状态为 `running` 或 `paused` 时，`runtimeReady` 为真；其他状态均为假。
 
-Host 对最终可见性拥有权威。Component 可观察已协商的可见性事件并执行过渡，但不能覆盖 Host 可见性、在隐藏时接收输入，或违背 Host 策略自行显示。隐藏必须使实例从命中测试中移除。`runtimeReady` 仅在达到 Host 定义的就绪状态后为真。
+Host 对最终可见性拥有权威。协商了 `org.bap.presentation` 后，Host 必须在 Component 进入 `running` 后发送初始有效可见状态，并在计算结果变化时发送后续变更。Component 可以观察这些事件并执行过渡，但不能覆盖 Host 可见性、在隐藏时接收输入，或违背 Host 策略自行显示。隐藏必须使实例从命中测试中移除。本版本的 presentation 仅表达可见性；场景选择、场景过渡、动画控制以及由场景决定的可见性门控均不在范围内。
 
 ## 7. Companion 快照同步
 
